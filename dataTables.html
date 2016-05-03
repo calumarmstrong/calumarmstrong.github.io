@@ -3,8 +3,12 @@
     <head>
         <meta content="text/html; charset=ISO-8859-1"
         http-equiv="content-type">
-        <title>Addition Files</title>
+        <title>Support Website</title>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        
     </head>
     
     <body alink="#01A9DB" link="#01A9DB" vlink="#01A9DB">
@@ -15,7 +19,7 @@
                 <!-- TITLE BAR -->
                 <tr align="left">
                     <td colspan="2" class="titleBarCell"> 
-                        <h1>Additional Files</h1>
+                        <h1>Calum Armstrong - MEng Support Website</h1>
                     </td>
                 </tr>
                 <tr>
@@ -31,6 +35,31 @@
                                                     <a href="videoDemonstration.html">Video Demonstration</a>
                                                     <a href="matlabFiles.html">Matlab Files</a>
                                                     <a class="active" href="dataTables.html">Data Tables</a>
+                                                        <div class="panel-group" id="accordion">
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#human" data-toggle="collapse" style="padding-left: 30;">- Human</a>
+                                                                <div id="human" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="aData">/a:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="iData">/i:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="uData">/u:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="AvgData">Average</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#genelec" data-toggle="collapse" style="padding-left: 30px;">- Genelec</a>
+                                                                <div id="genelec" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="GWN">White Noise</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="GSS">Sine Sweep</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#globe" data-toggle="collapse" style="padding-left: 30px;">- Globe</a>
+                                                                <div id="globe" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="GLO">Omnidirectional</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="GLD">Directional</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <a href="graphicalPlots.html">Graphical Plots</a>   
                                                     <a href="other.html">Other</a>
                                                 </span>
@@ -44,42 +73,265 @@
                     <!-- CONTENT -->
                     <td class="contentCell">
                         <div class="scrollingDiv">
-                                    <br><br>
-                                    <img src="images/TitleLogo2.png" width="450px"><br>
-                                    <hr>
-                                    <img src="images/Download_on_the_App_Store_Badge_US-UK_135x40.svg" width="150px" style="margin: 5px; margin-left: 0px;"><br> 
-                                    <hr>
-                                    <br>
-                                    Dual Play is a revolutionary new sound synthesis app that brings back what matters most about music - your own style! With unique features and great customisation options, there may be no such thing as a free lunch, but you can certainly put on a free show! Play on your own, or play with friends in our hassle free two-player mode, the only thing that counts is that you're having fun. <br>
-                            
+                            <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">
+                                <h2>Data Tables</h2>
+                                <hr><br>
+                                <div>
+                                    <div id="aData" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse1">Human: /a:/ - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse1" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
                                         
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse2">Human: /a:/ - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse2" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
                                         
-                                        <br>
-                                        <p align="center">
-                                            <img src="images/SSStandard.jpg" width="30%"> <img src="images/SSOptions.jpg" width="30%"> <img src="images/SSTwoPlayer.jpg" width="30%">
-                                        </p>
-                                        <br>
-                            
-                                    Whilst still providing all the functionality you might expect from a typical keyboard based application, Dual Play offers you more choice and flexability. Customize the look and feel of each keyboard seperately with an advanced options menu and find the sound that suits you.<br><br><br>
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse3">Human: /a:/ - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse3" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="iData" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse4">Human: /i:/ - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse4" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/i_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
                                         
-                            
-                                    <h3>Future Updates:</h3>
-                                    <ul>
-                                        <li>The more the merrier (1) - Loads of new skins coming your way soon, along with the option to import your own straight from camera roll!</li>
-                                        <li>The more the merrier (2) - Instruments, instuments, and more instruments... Whether you play the guitar, or mongolian nose whistle, we're on it.</li>
-                                        <li>Time to learn - Basic lessons and song tutorials are on their way, to help everyone get off to a great start.</li>
-                                        <li>Audio Glitches - Were aware that some of out synthesizers arent quite up to scratch when it comes to playing alot of notes, so it's getting fixed.</li>
-                                        <li>Lets get personal - You'll all have hopefully spotted that you can change the volume of a note by touching higher / lower on the key, but soon youll be able to change much more, and personalise the setting too.</li> 
-                                    </ul>
-                                    <br><br>
-                           
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse5">Human: /i:/ - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse5" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/i_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse6">Human: /i:/ - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse6" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/i_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="uData" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse7">Human: /u:/ - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse7" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse8">Human: /u:/ - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse8" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse9">Human: /u:/ - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse9" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/a_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="AvgData" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse10">Human: Average - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse10" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/AVG_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse11">Human: Average - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse11" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/AVG_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse12">Human: Average - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse12" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/AVG_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="GWN" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse13">Genelec: White Noise - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse13" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GWN_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse14">Genelec: White Noise - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse14" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GWN_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse15">Genelec: White Noise - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse15" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GWN_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="GSS" style="display: none">
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse16">Genelec: Sine Sweep - X-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse16" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GSS_X.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse17">Genelec: Sine Sweep - Y-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse17" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GSS_Y.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                        <div class="panel-group">
+                                          <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse18">Genelec: Sine Sweep - Z-Plane</a>
+                                              </h4>
+                                            </div>
+                                            <div id="collapse18" class="panel-collapse collapse">
+                                              <div class="panel-body"><img src="images/webTables/GSS_Z.png" style="width:100%"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="GLO" style="display: none">GLO</div>
+                                    <div id="GLD" style="display: none">GLD</div>
+                                </div>
+                            </table>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-
     </body>
-
-
 </html>
+
+<script type="text/javascript">
+    $('a').on('click', function(){
+       var target = $(this).attr('rel');
+       $("#"+target).show().siblings("div").hide();
+    });
+</script>

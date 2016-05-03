@@ -3,8 +3,12 @@
     <head>
         <meta content="text/html; charset=ISO-8859-1"
         http-equiv="content-type">
-        <title>Addition Files</title>
+        <title>Support Website</title>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="mystyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="bootstrap/js/bootstrap.js"></script>
+        
     </head>
     
     <body alink="#01A9DB" link="#01A9DB" vlink="#01A9DB">
@@ -15,7 +19,7 @@
                 <!-- TITLE BAR -->
                 <tr align="left">
                     <td colspan="2" class="titleBarCell"> 
-                        <h1>Additional Files</h1>
+                        <h1>Calum Armstrong - MEng Support Website</h1>
                     </td>
                 </tr>
                 <tr>
@@ -32,6 +36,31 @@
                                                     <a href="matlabFiles.html">Matlab Files</a>
                                                     <a href="dataTables.html">Data Tables</a>
                                                     <a class="active" href="graphicalPlots.html">Graphical Plots</a>   
+                                                        <div class="panel-group" id="accordion">
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#human" data-toggle="collapse" style="padding-left: 30;">- Human</a>
+                                                                <div id="human" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="aData">/a:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="iData">/i:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="uData">/u:/</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="AvgData">Average</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#genelec" data-toggle="collapse" style="padding-left: 30px;">- Genelec</a>
+                                                                <div id="genelec" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="GWN">White Noise</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="GSS">Sine Sweep</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <a data-parent="#accordion" href="#globe" data-toggle="collapse" style="padding-left: 30px;">- Globe</a>
+                                                                <div id="globe" class="panel-collapse collapse">
+                                                                    <a style="padding-left: 50px;" href="#" rel="GLO">Omnidirectional</a>
+                                                                    <a style="padding-left: 50px;" href="#" rel="GLD">Directional</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     <a href="other.html">Other</a>
                                                 </span>
                                             </div>    
@@ -44,157 +73,31 @@
                     <!-- CONTENT -->
                     <td class="contentCell" >
                         <div class="scrollingDiv">
-                            <br><br>
-                            <font size="5"><p style="text-align: center;">For any of those that may be interested, we've included below some of the technical jargon that goes into making our apps, so that you can atleast have an idea of whats going on behind the scenes!<br><br>
-                            Please be aware, that as things get more complicated, we have assumed a least basic working knowledge of programming in XCode (or this page would simply go on foewever!).</p></font>
-                            <br>
-                            <br><br>
-                            <img src="images/TitleLogo2.png" width="450px"><br> 
-                            <hr>
-                            <br>
-                            
-                            Dual Play is a keyboard synthesis app that employs a set of coding files known as "<a href="http://audiokit.io">AudioKit</a>" to handle its audio output. It is designed in Apple's own development environment, XCode, and is a completely self contained application.<br><br>
-                            
-                            <div style="float: right; width: 50%; margin-left: 20px; border: 2px solid black; padding: 15px;" >
-                                <img src="images/AppViewDesign.png" width="100%">
-                                Blue: Main view controller<br>
-                                Green: Keyboard image views<br>
-                                Red: Touch Recognition And Image Handler Veiws
-                            </div>
-                                
-                            At the core of Dual Play are two customised Touch Recognition And Image Handler classes (one for each keyboard) that inherit from apple's UIView object. Each of these classes implements methods to handle touches that have begun, moved, or just ended within the view's boundries. Parameters, such as location, are logged within a series of CFMutableDictionarys for each touch that has started / moved since the last time step, with the parameter's key equal to the memory addres of that particular touch. This allows us to track the movement of independant touches and not get confused by which finger is which.<br><br>
-                            
-                            Next comes the clever bit. As demonstrated in the image to the right, the illuion of playing on a keyboard comes from a customised UIImage object held within each Touch Recognition And Image Handler (TRAIH) class. This UIImage object contains the image of a full length keyboard, the same height as the TRAIH class view, but of variable width. (The variable width controlls the "key size" setting!) The TRAIH class trims, or crops, the parts of the keyboard image that do not fit inside its view, hence only showing one or two octaves to the user at a time. <br><br>
-                            
-                            By using knowledge of the location of a touch within the TRAIH view, the geometary of the keyboard image, the location of the keyboard image (its left / right positioning), and the width of the keyboard image we are able to use maths to find the "key" that a user's finger is currently pressed on. The required frequency output can then found with the knowledge of which keyboard notes produce what frequencies. This information is simply stored in an array, and is accessed once the program knows which key a user is pressing.<br><br>
-                            
-                            This frequency and amplitude information is then finally passed to the <a href="http://audiokit.io">AudioKit</a> engine. AudioKit is a set of coding files that interfaces between a programmer's code, and Apple's "Core Audio". Core Audio is the code required to input and output audio from an app and is handled sample by sample, amplitude by amplitude. AudioKit interfaces this, making coding for audio more user-friendly. It handles the individual sample levels required by Core Audio on behalf of the programmer, giving them to option instead to request higher level audio functions such as a sine wave, or individual notes. It is, in a way, similar to Apple providing you a pre-made UIButton, instead of forcing you to code the object yourself!<br><br>
-                            
-                            Ontop of its more basic functinality, AuioKit also provides the user the option to inplement a set of more complex pre-coded sounds. By creating a new custom class which inherits from AudioKit's "AKInstrument", a programmer can add oscilators and parameter variables to this class to create a virtual instrument. Oscilators within an instrument class should be of an "Operation" type, for instance AKFlute or AKPluckedString. These are complex physical models or mathematical operations that generate signals within an AKInstrument and can have parameters, such as amplitude or frequency. By allocating operation parameters to a custom AKInstrument class property, a programmer can programatically change the properties of the sound produced through AudioKit by overwritting class property values.<br><br>
-                            
-                            Further to AKInsruments, AudioKit also provides the functionality to play notes (AKNotes) via its instruments. AKNotes are similar to AKInstruments in that they can both have properties (amplitude, frequency...) however AKNotes do not include any operations. AKInstruments can be coded to play particular AKNotes, with the advantage that a single AKInstrument can play multiple notes simultaniously, facilatating memory efficient polyphony. To do this, a second class, which inherits from "AKNote", is usually implemented within the same coding file as the programmer's custom AKInstrument Class. Similar to before, custom AKNote class properties are then defined within the custom AKNote class. An instance of this custom AKNote class that then be instantiated from within the custom AKInstrument class and operation parameters assigned to the custom AKNote properties instead.<br><br>
-                            
-                            An instance of the custom AKInstrument can then be instructed to play an instance of the custom AKNote. This means that rather than altering the parameters for an entire AKInstrument each time one whishes to play a sound of differing frequency, one needs only to send the instrument a correctly attributed AKNote. The sound produced will have the properties of the AKNote, but a timbre governed by the operations inside the AKInstrument. <br><br>
-                            
-                            Perhaps at this point its best to follow with a basic psudo code example. Please note, that this is not functioning code, it is simply to illistate the main points discussed above to implement an AKInstrument with AKNotes.<br><br>
-                            
-                            
-                            <table style="width: 100%; background-color: lightgray; color: black;" border="0" cellpadding="10" cellspacing="0">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 50%;">
-                                            <div style="width: 100%; height: 100%;">
-                                                <font color="green">// Custom AKInstrument Class H File</font>              <br>
-                                                <font color="red">@interface </font>
-                                                MyInstrument : AKInstrument                                                 <br>
-                                                                                                                            <br>
-                                                <font color="green">// Declare operation (of type AKFlute)</font>           <br>
-                                                <font color="blue">AKFlute</font> myOperation;                              <br>
-                                                                                                                            <br>
-                                                <font color="red">@end </font>                                              <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                                                                                            <br>
-                                                <font color="green">// Custom AKNote Class H File</font>                    <br>
-                                                <font color="red">@interface </font>
-                                                MyNote : AKNote                                                             <br>
-                                                                                                                            <br>
-                                                <font color="green">// Declare note parameters</font>                       <br>
-                                                <font color="blue">AKNoteProperty</font> freq;                              <br>
-                                                <font color="blue">AKNoteProperty</font> amp;                               <br>
-                                                                                                                            <br>
-                                                <font color="red">@end </font>                                              <br>
-                                                
-                                            </div>    
-                                        </td>
-                                        <td style="width: 50%;">
-                                            <div style="width: 100%; height: 100%;">
-                                                <font color="green">// Custom AKInstrument Class M File</font>                                                                  <br>
-                                                <font color="red">@implementation </font>
-                                                MyInstrument                                                                                                                    <br>
-                                                                                                                                                                                <br>
-                                                <font color="green">// Create instance of custome AKNote</font>                                                                 <br>
-                                                <font color="blue">MyNote</font> instanceOfMyNote = [[<font color="blue">MyNote</font> alloc] init];                            <br>
-                                                                                                                                                                                <br>
-                                                <font color="green">// Create instance of operation with preset "flute"</font>                                                  <br>
-                                                <font color="blue">myOperation</font> = [<font color="blue">AKFlute</font> flute];                                              <br>
-                                                                                                                                                                                <br>
-                                                <font color="green">// Alocate operation parameters to note properties</font>                                                   <br>
-                                                <font color="blue">myOperation</font>.<font color="blue">frequency</font> = instanceOfMyNote.<font color="blue">freq</font>;    <br>
-                                                <font color="blue">myOperation</font>.<font color="blue">amplitude</font> = instanceOfMyNote.<font color="blue">amp</font>;     <br>
-                                                                                                                                                                                <br>
-                                                <font color="red">@end </font>                                                                                                  <br>
-                                                                                                                                                                                <br>
-                                                                                                                                                                                <br>
-                                                                                                                                                                                <br>
-                                                <font color="green">// Custom AKNote Class M File</font>                                                                        <br>
-                                                <font color="red">@implementation </font>
-                                                MyNote                                                                                                                          <br>
-                                                                                                                                                                                <br>
-                                                <font color="green">// Set note duration</font>                                                                                 <br>
-                                                <font color="red">self</font>.<font color="blue">duration</font>.<font color="blue">value</font> = 1;                           <br>
-                                                                                                                                                                                <br>
-                                                <font color="red">@end </font>                                                                                                  <br>
-                                                
-                                                
-                                            </div>    
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">
+                                <h2>Graphical Plots</h2>
+                                <hr><br>
+                                <div>
+                                    <div id="aData" style="display: none">aData</div>
+                                    <div id="iData" style="display: none">iData</div>
+                                    <div id="uData" style="display: none">uData</div>
+                                    <div id="AvgData" style="display: none">AvgData</div>
+                                    <div id="GWN" style="display: none">GWN</div>
+                                    <div id="GSS" style="display: none">GSS</div>
+                                    <div id="GLO" style="display: none">GLO</div>
+                                    <div id="GLD" style="display: none">GLD</div>
+                                </div>
                             </table>
-
-                            <br>
-                            
-                            From here, it is very simple to use this instrument from within an apps main code. After declaring and initialising both the custom AKInstrument and custom AKNote a programmer can assign values to the note properties, and play the note through the instrument. Please note that in the following example, line 3 is required by AudioKit as its origins lie in a programming language called CSound, and this is something that must be done to include the instrument in the output.<br><br>
-                            
-                            <table style="width: 100%; background-color: lightgray; color: black;" border="0" cellpadding="10" cellspacing="0">
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 50%;">
-                                            <div style="width: 100%; height: 100%;">
-                                                <font color="blue">MyInstrument</font> instanceOfMyInstrument = [[<font color="blue">MyInstrument</font> alloc] init]; <br>
-                                                <font color="blue">MyNote</font> secondInstanceOfMyNote = [[<font color="blue">MyNote</font> alloc] init]; <br>
-                                                [<font color="blue">AKOrchestra</font> addInstrument:<font color="blue">instanceOfMyInstrument</font>]; <br>
-                                                <br>
-                                                <font color="blue">secondInstanceOfMyNote</font>.<font color="blue">amp</font> = 0.5; <br>
-                                                <font color="blue">secondInstanceOfMyNote</font>.<font color="blue">freq</font> = 440;<br>
-                                                <br>
-                                                [<font color="blue">instanceOfMyInstrument</font> playNote: secondInstanceOfMyNote];
-                                                
-                                            </div>    
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <br>
-                            
-                            <div style="float: right; width: 50%; margin-left: 20px; margin-top: -8px;">
-                                <img src="images/iOSClassDiagram.png" width="100%">
-                                <br>
-                                <br>
-                                <br>
-                            </div>
-                            
-                            Again, Please be aware that this is not functioning code, but just an example to illustrate key points.<br><br>
-                            
-                            This is how each of the available instruments is implemented within DualPlay. It gets a little more complicated as multiple instances of notes are required in order to play multiple keys at once on a keyboard, but the basic idea remains the same.<br><br>
-                        
-                            As for the rest of the code, the diagram to the right shows the basic class hierarchy. You can see how delegates are used to implement setting changes in the keyboards from within the settings popup menu and how each keyboard has its own set of handler classes and intrument instances. For a more thoughrough explanation of how the program works however, please refer to the detailed comments provided within the program's source code.<br><br>
-                    
                         </div>            
                     </td>
                 </tr>
             </tbody>
         </table>
-
     </body>
-
-
 </html>
+
+<script type="text/javascript">
+    $('a').on('click', function(){
+       var target = $(this).attr('rel');
+       $("#"+target).show().siblings("div").hide();
+    });
+</script>

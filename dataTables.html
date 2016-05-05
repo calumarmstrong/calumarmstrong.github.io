@@ -76,6 +76,11 @@
                             <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">
                                 <h2>Data Tables</h2>
                                 <hr><br>
+                                <div class="Description" style="text-align: center; width: 700px; margin: 0 auto;">
+                                    Welcome to the page for Data Tables. Please use the drop down menue on the left to select which Sound Source you would like to view the Data Tables of.
+                                    <br><br><br>
+                                    Tables are downloadable as Matlab figure files if copying of data is required.
+                                </div>
                                 <div>
                                     <div id="aData" style="display: none">
                                         <div class="panel-group">
@@ -119,6 +124,11 @@
                                             </div>
                                           </div>
                                         </div>
+                            
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="iData" style="display: none">
                                         <div class="panel-group">
@@ -162,6 +172,11 @@
                                             </div>
                                           </div>
                                         </div>
+                
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="uData" style="display: none">
                                         <div class="panel-group">
@@ -205,6 +220,11 @@
                                             </div>
                                           </div>
                                         </div>
+
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="AvgData" style="display: none">
                                         <div class="panel-group">
@@ -248,6 +268,11 @@
                                             </div>
                                           </div>
                                         </div>
+
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="GWN" style="display: none">
                                         <div class="panel-group">
@@ -291,6 +316,11 @@
                                             </div>
                                           </div>
                                         </div>
+
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="GSS" style="display: none">
                                         <div class="panel-group">
@@ -334,6 +364,11 @@
                                             </div>
                                           </div>
                                         </div>
+
+                                        <div style="text-align: center; width: 700px; margin: 0 auto;">
+                                            Click a black heading to expand the Data Table for that Plane. Click the blue filename to download the corresponding Matlab Figure.
+                                        </div>
+                                        
                                     </div>
                                     <div id="GLO" style="display: none">GLO</div>
                                     <div id="GLD" style="display: none">GLD</div>
@@ -354,6 +389,7 @@
     });
     
     $('.three').on('click', function(){
+       $('.description').hide();
        var target = $(this).attr('rel');
        $("#"+target).show().siblings("div").hide();
        $('a.three').removeClass('activethree');

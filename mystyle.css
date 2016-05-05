@@ -63,6 +63,16 @@ h3 {
     color: white;
 }
 
+.activetwo {
+    background-color: #D9D9D9;
+    color: white;
+}
+
+.activethree {
+    background-color: #E4E4E4;
+    color: white;
+}
+
 .titleBarCell {
     vertical-align: center; 
     height: 50px;

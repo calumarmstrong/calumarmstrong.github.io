@@ -1,0 +1,425 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>PlotComparasonSpectrum_2</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-05-06"><meta name="DC.source" content="PlotComparasonSpectrum_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Description of Function</a></li><li><a href="#3">User Inputs</a></li><li><a href="#4">Input Files</a></li><li><a href="#5">Check Input Files Are of Correct Format</a></li><li><a href="#7">Begin Conditional Code</a></li><li><a href="#9">Calculate Spectra Difference</a></li><li><a href="#10">Smooth Difference Curve</a></li><li><a href="#11">Plot Difference Curves</a></li><li><a href="#12">Calculate Ovtave Band Samples</a></li><li><a href="#13">Calculate Octave Band Averages</a></li><li><a href="#14">Plot Octave Band Averages</a></li><li><a href="#15">Organise Graph</a></li><li><a href="#16">End Conditional Code</a></li><li><a href="#18">End Function</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [ output ] = PlotComparasonSpectrum_2( normSignalFilename,<span class="keyword">...</span>
+                                                testSignalFilename,<span class="keyword">...</span>
+                                                azimuth,<span class="keyword">...</span>
+                                                elevation,<span class="keyword">...</span>
+                                                fs, x, l, m<span class="keyword">...</span>
+                                              )
+</pre><h2>Description of Function<a name="2"></a></h2><pre class="codeinput">    <span class="comment">% This function will recieve the filenames of a normalized audio</span>
+    <span class="comment">% file, and a test audio file which should be compared. The function</span>
+    <span class="comment">% will load the two files, and plot a comparason of their frequency</span>
+    <span class="comment">% spectra in terms of:</span>
+
+    <span class="comment">% The actual difference in frequency magnitudes</span>
+    <span class="comment">% A smoothed out difference in frequency magnitudes</span>
+    <span class="comment">% Average differnce in frequency magnitudes over a number of octave</span>
+    <span class="comment">% bands</span>
+</pre><h2>User Inputs<a name="3"></a></h2><pre class="codeinput">    <span class="comment">% Define folder test recordings are held in</span>
+    folder = sprintf(<span class="string">'Globe_Full_Recordings/'</span>);
+
+    <span class="comment">% Define smoothing factor for ploting smoothed comparason</span>
+    <span class="comment">% (approx 10,000 for smooth)</span>
+    smoothing = 1000;
+</pre><h2>Input Files<a name="4"></a></h2><pre class="codeinput">    <span class="comment">% Define full filepaths for recordings to be analyzed</span>
+    normSignalFilepath = sprintf(<span class="string">'%s%s'</span>, folder, normSignalFilename);
+    testSignalFilepath = sprintf(<span class="string">'%s%s'</span>, folder, testSignalFilename);
+
+    <span class="comment">% Read in recordings to be analyzed</span>
+    normSignal = audioread(normSignalFilepath);
+    testSignal = audioread(testSignalFilepath);
+</pre><h2>Check Input Files Are of Correct Format<a name="5"></a></h2><pre class="codeinput">    <span class="comment">% Test Normal and Test recording are of same length</span>
+    <span class="keyword">if</span> length(normSignal) ~= length(testSignal)
+</pre><pre class="codeinput">        error(<span class="keyword">...</span>
+        <span class="string">'normal signal %s is NOT of same length as test signal %s'</span>,<span class="keyword">...</span>
+        normSignalFilename, testSignalFilename<span class="keyword">...</span>
+        );
+</pre><h2>Begin Conditional Code<a name="7"></a></h2><pre class="codeinput">    <span class="keyword">else</span>
+</pre><h2>Calculate Spectra Difference<a name="9"></a></h2><pre class="codeinput">        <span class="comment">% Get length (number of samples) of recordings</span>
+        N = length(testSignal);
+
+        <span class="comment">% Define hanning window</span>
+        han = hanning(N);
+
+        <span class="comment">% Apply hanning window to recordings to negate "edge"</span>
+        <span class="comment">% dicontinuities</span>
+        normSignal = normSignal.*han;
+        testSignal = testSignal.*han;
+
+        <span class="comment">% Calculate magnitude of FFT of recordings and convert to dB</span>
+        <span class="comment">% scale</span>
+        normSpectrum = abs(fft(normSignal, N));
+        normSpectrum = 20*log10(normSpectrum);
+        testSpectrum = abs(fft(testSignal, N));
+        testSpectrum = 20*log10(testSpectrum);
+
+        <span class="comment">% Calculate difference in spectra</span>
+        comparSpectrum = testSpectrum - normSpectrum;
+</pre><h2>Smooth Difference Curve<a name="10"></a></h2><pre class="codeinput">        <span class="comment">% Apply smoothing Function</span>
+        g = gausswin(smoothing);
+        g = g/sum(g);
+        smoothComparSpectrum = conv(comparSpectrum, g, <span class="string">'same'</span>);
+</pre><h2>Plot Difference Curves<a name="11"></a></h2><pre class="codeinput">        <span class="comment">% Assign Values for frequency axis</span>
+        freq_axis = 0:fs/N:fs-(fs/N);
+
+        <span class="comment">% Calculate sample which corresponds to approx 20,000Hz</span>
+        maxPlotSample = round(((16000*(2^(1/2)))*N)/fs);
+
+        <span class="comment">% Plot graph (log freq) of actual difference between spectra</span>
+        subplot(l, m, x), pCS = semilogx(freq_axis(1:maxPlotSample),<span class="keyword">...</span>
+                                    comparSpectrum(1:maxPlotSample));
+        hold <span class="string">on</span>;
+
+        <span class="comment">% Plot graph (log freq) of smoothed / averaged difference</span>
+        <span class="comment">% between spectra</span>
+        subplot(l, m, x), pSCS = semilogx(freq_axis(1:maxPlotSample),<span class="keyword">...</span>
+                               smoothComparSpectrum(1:maxPlotSample),<span class="keyword">...</span>
+                               <span class="string">'r'</span>, <span class="string">'linewidth'</span>, 1);
+
+        <span class="comment">% re-scale axis to ensure all graphs are equal / comparable</span>
+        axis([20,20000,-75,50]);
+        graphTitle = sprintf (<span class="string">'Az. = %d%c Elev. = %d%c'</span>,<span class="keyword">...</span>
+                              azimuth, char(176), elevation, char(176));
+        title(graphTitle);
+</pre><img vspace="5" hspace="5" src="PlotComparasonSpectrum_2_01.png" alt=""> <h2>Calculate Ovtave Band Samples<a name="12"></a></h2><pre class="codeinput">        <span class="comment">% Calculate samples which correspond to upper and lower bounds</span>
+        <span class="comment">% of octave bands</span>
+        freq22_1HzSample    = round((( 31.25 / (2^(1/2)))*N)/fs);
+        freq44_2HzSample    = round((( 62.5  / (2^(1/2)))*N)/fs);
+        freq88_4HzSample    = round((( 125   / (2^(1/2)))*N)/fs);
+        freq176_8HzSample   = round((( 250   / (2^(1/2)))*N)/fs);
+        freq353_6HzSample   = round((( 500   / (2^(1/2)))*N)/fs);
+        freq707_1HzSample   = round((( 1000  / (2^(1/2)))*N)/fs);
+        freq1414_2HzSample  = round((( 2000  / (2^(1/2)))*N)/fs);
+        freq2828_4HzSample  = round((( 4000  / (2^(1/2)))*N)/fs);
+        freq5656_9HzSample  = round((( 8000  / (2^(1/2)))*N)/fs);
+        freq11313_7HzSample = round((( 16000 / (2^(1/2)))*N)/fs);
+        freq22627_4HzSample = round((( 16000 * (2^(1/2)))*N)/fs);
+</pre><h2>Calculate Octave Band Averages<a name="13"></a></h2><pre class="codeinput">        <span class="comment">% Select function to use for averaging in octave band responce</span>
+        <span class="comment">% (Actual diffrence, or Smoothed difference)</span>
+        outputAverageVector = comparSpectrum;
+
+        <span class="comment">% Calculate octave band averages</span>
+        output(1)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq22_1HzSample   :freq44_2HzSample   ));
+        output(2)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq44_2HzSample   :freq88_4HzSample   ));
+        output(3)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq88_4HzSample   :freq176_8HzSample  ));
+        output(4)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq176_8HzSample  :freq353_6HzSample  ));
+        output(5)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq353_6HzSample  :freq707_1HzSample  ));
+        output(6)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq707_1HzSample  :freq1414_2HzSample ));
+        output(7)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq1414_2HzSample :freq2828_4HzSample ));
+        output(8)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq2828_4HzSample :freq5656_9HzSample ));
+        output(9)  = mean<span class="keyword">...</span>
+        (outputAverageVector(freq5656_9HzSample :freq11313_7HzSample));
+        output(10) = mean<span class="keyword">...</span>
+        (outputAverageVector(freq11313_7HzSample:freq22627_4HzSample));
+
+        <span class="comment">% Save Octave band averages in order to plot alongside</span>
+        <span class="comment">% actual / smoothed differeces</span>
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( 1                   : freq22_1HzSample    ) = NaN;
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq22_1HzSample    : freq44_2HzSample    ) = output(1);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq44_2HzSample    : freq88_4HzSample    ) = output(2);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq88_4HzSample    : freq176_8HzSample   ) = output(3);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq176_8HzSample   : freq353_6HzSample   ) = output(4);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq353_6HzSample   : freq707_1HzSample   ) = output(5);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq707_1HzSample   : freq1414_2HzSample  ) = output(6);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq1414_2HzSample  : freq2828_4HzSample  ) = output(7);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq2828_4HzSample  : freq5656_9HzSample  ) = output(8);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq5656_9HzSample  : freq11313_7HzSample ) = output(9);
+        plottingOctaveBandAverageResponse<span class="keyword">...</span>
+        ( freq11313_7HzSample : freq22627_4HzSample ) = output(10);
+</pre><h2>Plot Octave Band Averages<a name="14"></a></h2><pre class="codeinput">        subplot(l, m, x),<span class="keyword">...</span>
+            pOBAR = semilogx(freq_axis(1:maxPlotSample),<span class="keyword">...</span>
+                    plottingOctaveBandAverageResponse,<span class="keyword">...</span>
+                    <span class="string">'g'</span>, <span class="string">'linewidth'</span>, 1);
+</pre><img vspace="5" hspace="5" src="PlotComparasonSpectrum_2_02.png" alt=""> <h2>Organise Graph<a name="15"></a></h2><pre class="codeinput">        <span class="comment">% Re-order plots to improve analytical capabilities</span>
+        uistack(pSCS, <span class="string">'top'</span>);
+</pre><img vspace="5" hspace="5" src="PlotComparasonSpectrum_2_03.png" alt=""> <h2>End Conditional Code<a name="16"></a></h2><pre class="codeinput">    <span class="keyword">end</span>
+</pre><h2>End Function<a name="18"></a></h2><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [ output ] = PlotComparasonSpectrum_2( normSignalFilename,...
+                                                testSignalFilename,...
+                                                azimuth,...
+                                                elevation,...
+                                                fs, x, l, m... 
+                                              )
+%% Description of Function
+    
+    % This function will recieve the filenames of a normalized audio 
+    % file, and a test audio file which should be compared. The function 
+    % will load the two files, and plot a comparason of their frequency 
+    % spectra in terms of:
+
+    % The actual difference in frequency magnitudes
+    % A smoothed out difference in frequency magnitudes
+    % Average differnce in frequency magnitudes over a number of octave 
+    % bands
+
+    
+    %% User Inputs
+    
+    % Define folder test recordings are held in
+    folder = sprintf('Globe_Full_Recordings/');
+    
+    % Define smoothing factor for ploting smoothed comparason 
+    % (approx 10,000 for smooth)
+    smoothing = 1000;
+    
+    
+    %% Input Files
+    
+    % Define full filepaths for recordings to be analyzed
+    normSignalFilepath = sprintf('%s%s', folder, normSignalFilename);
+    testSignalFilepath = sprintf('%s%s', folder, testSignalFilename);
+    
+    % Read in recordings to be analyzed
+    normSignal = audioread(normSignalFilepath);
+    testSignal = audioread(testSignalFilepath);
+    
+    
+    %% Check Input Files Are of Correct Format
+    
+    % Test Normal and Test recording are of same length
+    if length(normSignal) ~= length(testSignal)
+        error(...
+        'normal signal %s is NOT of same length as test signal %s',...
+        normSignalFilename, testSignalFilename...
+        );
+    
+    
+    %% Begin Conditional Code
+    
+    else
+        %% Calculate Spectra Difference
+        
+        % Get length (number of samples) of recordings
+        N = length(testSignal);
+        
+        % Define hanning window
+        han = hanning(N);
+
+        % Apply hanning window to recordings to negate "edge" 
+        % dicontinuities
+        normSignal = normSignal.*han;
+        testSignal = testSignal.*han;
+        
+        % Calculate magnitude of FFT of recordings and convert to dB
+        % scale
+        normSpectrum = abs(fft(normSignal, N));
+        normSpectrum = 20*log10(normSpectrum);
+        testSpectrum = abs(fft(testSignal, N));
+        testSpectrum = 20*log10(testSpectrum);
+
+        % Calculate difference in spectra
+        comparSpectrum = testSpectrum - normSpectrum;
+        
+        
+        %% Smooth Difference Curve
+        
+        % Apply smoothing Function 
+        g = gausswin(smoothing);
+        g = g/sum(g);
+        smoothComparSpectrum = conv(comparSpectrum, g, 'same');
+        
+        
+        %% Plot Difference Curves
+        
+        % Assign Values for frequency axis
+        freq_axis = 0:fs/N:fs-(fs/N);
+        
+        % Calculate sample which corresponds to approx 20,000Hz
+        maxPlotSample = round(((16000*(2^(1/2)))*N)/fs);
+           
+        % Plot graph (log freq) of actual difference between spectra
+        subplot(l, m, x), pCS = semilogx(freq_axis(1:maxPlotSample),...
+                                    comparSpectrum(1:maxPlotSample));
+        hold on;
+        
+        % Plot graph (log freq) of smoothed / averaged difference 
+        % between spectra
+        subplot(l, m, x), pSCS = semilogx(freq_axis(1:maxPlotSample),...
+                               smoothComparSpectrum(1:maxPlotSample),...
+                               'r', 'linewidth', 1);
+        
+        % re-scale axis to ensure all graphs are equal / comparable
+        axis([20,20000,-75,50]);
+        graphTitle = sprintf ('Az. = %d%c Elev. = %d%c',...
+                              azimuth, char(176), elevation, char(176));
+        title(graphTitle);
+        
+        
+        %% Calculate Ovtave Band Samples
+        
+        % Calculate samples which correspond to upper and lower bounds 
+        % of octave bands
+        freq22_1HzSample    = round((( 31.25 / (2^(1/2)))*N)/fs);
+        freq44_2HzSample    = round((( 62.5  / (2^(1/2)))*N)/fs);
+        freq88_4HzSample    = round((( 125   / (2^(1/2)))*N)/fs);
+        freq176_8HzSample   = round((( 250   / (2^(1/2)))*N)/fs);
+        freq353_6HzSample   = round((( 500   / (2^(1/2)))*N)/fs);
+        freq707_1HzSample   = round((( 1000  / (2^(1/2)))*N)/fs);
+        freq1414_2HzSample  = round((( 2000  / (2^(1/2)))*N)/fs);
+        freq2828_4HzSample  = round((( 4000  / (2^(1/2)))*N)/fs);
+        freq5656_9HzSample  = round((( 8000  / (2^(1/2)))*N)/fs);
+        freq11313_7HzSample = round((( 16000 / (2^(1/2)))*N)/fs);
+        freq22627_4HzSample = round((( 16000 * (2^(1/2)))*N)/fs);
+        
+        
+        %% Calculate Octave Band Averages
+        
+        % Select function to use for averaging in octave band responce
+        % (Actual diffrence, or Smoothed difference)
+        outputAverageVector = comparSpectrum;
+        
+        % Calculate octave band averages
+        output(1)  = mean...
+        (outputAverageVector(freq22_1HzSample   :freq44_2HzSample   ));
+        output(2)  = mean...
+        (outputAverageVector(freq44_2HzSample   :freq88_4HzSample   ));
+        output(3)  = mean...
+        (outputAverageVector(freq88_4HzSample   :freq176_8HzSample  ));
+        output(4)  = mean...
+        (outputAverageVector(freq176_8HzSample  :freq353_6HzSample  ));
+        output(5)  = mean...
+        (outputAverageVector(freq353_6HzSample  :freq707_1HzSample  ));
+        output(6)  = mean...
+        (outputAverageVector(freq707_1HzSample  :freq1414_2HzSample ));
+        output(7)  = mean...
+        (outputAverageVector(freq1414_2HzSample :freq2828_4HzSample ));
+        output(8)  = mean...
+        (outputAverageVector(freq2828_4HzSample :freq5656_9HzSample ));
+        output(9)  = mean...
+        (outputAverageVector(freq5656_9HzSample :freq11313_7HzSample));
+        output(10) = mean...
+        (outputAverageVector(freq11313_7HzSample:freq22627_4HzSample));
+        
+        % Save Octave band averages in order to plot alongside 
+        % actual / smoothed differeces
+        plottingOctaveBandAverageResponse...
+        ( 1                   : freq22_1HzSample    ) = NaN;
+        plottingOctaveBandAverageResponse...
+        ( freq22_1HzSample    : freq44_2HzSample    ) = output(1);
+        plottingOctaveBandAverageResponse...
+        ( freq44_2HzSample    : freq88_4HzSample    ) = output(2);
+        plottingOctaveBandAverageResponse...
+        ( freq88_4HzSample    : freq176_8HzSample   ) = output(3);
+        plottingOctaveBandAverageResponse...
+        ( freq176_8HzSample   : freq353_6HzSample   ) = output(4);
+        plottingOctaveBandAverageResponse...
+        ( freq353_6HzSample   : freq707_1HzSample   ) = output(5);
+        plottingOctaveBandAverageResponse...
+        ( freq707_1HzSample   : freq1414_2HzSample  ) = output(6);
+        plottingOctaveBandAverageResponse...
+        ( freq1414_2HzSample  : freq2828_4HzSample  ) = output(7);
+        plottingOctaveBandAverageResponse...
+        ( freq2828_4HzSample  : freq5656_9HzSample  ) = output(8);
+        plottingOctaveBandAverageResponse...
+        ( freq5656_9HzSample  : freq11313_7HzSample ) = output(9);
+        plottingOctaveBandAverageResponse...
+        ( freq11313_7HzSample : freq22627_4HzSample ) = output(10);
+        
+    
+        %% Plot Octave Band Averages
+        
+        subplot(l, m, x),...
+            pOBAR = semilogx(freq_axis(1:maxPlotSample),...
+                    plottingOctaveBandAverageResponse,...
+                    'g', 'linewidth', 1);
+ 
+                
+        %% Organise Graph
+        
+        % Re-order plots to improve analytical capabilities
+        uistack(pSCS, 'top');
+    
+        
+    %% End Conditional Code
+    end
+%% End Function
+end
+
+##### SOURCE END #####
+--></body></html>

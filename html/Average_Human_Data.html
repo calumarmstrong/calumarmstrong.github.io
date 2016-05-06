@@ -1,0 +1,860 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Average_Human_Data</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-05-06"><meta name="DC.source" content="Average_Human_Data.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Description of Function</a></li><li><a href="#2">User input</a></li><li><a href="#3">Definitions</a></li><li><a href="#4">Extract Data X-Plane</a></li><li><a href="#5">Extract Data Y-Plane</a></li><li><a href="#6">Extract Data Z-Plane</a></li><li><a href="#7">Combine and Average Sound Data for Each Plane</a></li><li><a href="#8">Produce Data Tables (setup)</a></li><li><a href="#9">Produce Data Tables Z - Plane</a></li><li><a href="#10">Produce Data Tables Y - Plane</a></li><li><a href="#11">Produce Data Tables X - Plane</a></li><li><a href="#12">Manipulate Data for Plotting</a></li><li><a href="#13">Plot Z-Plane Polar graph</a></li><li><a href="#14">Plot Y-Plane Polar graph</a></li><li><a href="#15">Plot X-Plane Polar graph</a></li><li><a href="#16">End of Code</a></li></ul></div><h2>Description of Function<a name="1"></a></h2><pre class="codeinput">    <span class="comment">% This code reads in the 9 data tables from 3 different Sound Source</span>
+    <span class="comment">% FAD tests (3 for each source, 1 for each plane) and averages them</span>
+    <span class="comment">% together over each plane. 3 new data tables along with new graphs</span>
+    <span class="comment">% are then output as in previous FAD analysis</span>
+</pre><h2>User input<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Define the folder in which data tables are stored</span>
+folder = <span class="string">'Data_Tables/'</span>;
+</pre><h2>Definitions<a name="3"></a></h2><pre class="codeinput">offset = -40;
+zangle = 0 : 2*pi/36 : 2*pi;
+xangle = 0 : 2*pi/18 : 2*pi;
+yangle = 0 : 2*pi/18 : 2*pi;
+graphTitleSound = <span class="string">'Human Avg.'</span>;
+</pre><h2>Extract Data X-Plane<a name="4"></a></h2><pre class="codeinput"><span class="comment">% Get Data from /u:/ sound - xPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, u/u_xPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_u_x =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /i:/ sound - xPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, i/i_xPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_i_x =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /a:/ sound - xPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, a/a_xPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_a_x =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+</pre><h2>Extract Data Y-Plane<a name="5"></a></h2><pre class="codeinput"><span class="comment">% Get Data from /u:/ sound - yPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, u/u_yPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_u_y =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /i:/ sound - yPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, i/i_yPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_i_y =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /a:/ sound - yPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, a/a_yPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_a_y =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+</pre><h2>Extract Data Z-Plane<a name="6"></a></h2><pre class="codeinput"><span class="comment">% Get Data from /u:/ sound - zPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, u/u_zPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_u_z =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /i:/ sound - zPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, i/i_zPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_i_z =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+
+<span class="comment">% Get Data from /a:/ sound - zPlane</span>
+file_to_open = sprintf(<span class="string">'%shuman, a/a_zPlane_data.fig'</span>, folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,<span class="string">'Type'</span>,<span class="string">'uitable'</span>);
+<span class="keyword">if</span> strcmpi( get(table_data_fig,<span class="string">'type'</span>), <span class="string">'uitable'</span>),  <span class="comment">%x is uitable</span>
+   data_a_z =get(table_data_fig,<span class="string">'Data'</span>);   <span class="comment">%this is the uitable data</span>
+<span class="keyword">end</span>
+close(gcf);
+</pre><h2>Combine and Average Sound Data for Each Plane<a name="7"></a></h2><pre class="codeinput">combined_matricies = cat(3, data_u_x, data_i_x, data_a_x);
+mean_data_x = mean(combined_matricies, 3);
+
+combined_matricies = cat(3, data_u_y, data_i_y, data_a_y);
+mean_data_y = mean(combined_matricies, 3);
+
+combined_matricies = cat(3, data_u_z, data_i_z, data_a_z);
+mean_data_z = mean(combined_matricies, 3);
+</pre><h2>Produce Data Tables (setup)<a name="8"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nProducing Data Tables'</span>);
+
+octaveBands = {<span class="string">'31.5Hz'</span> ,<span class="string">'63Hz'</span>   ,<span class="string">'125Hz'</span>  ,<span class="string">'250Hz'</span>  ,<span class="string">'500Hz'</span>   ,<span class="keyword">...</span>
+               <span class="string">'1,000Hz'</span>,<span class="string">'2,000Hz'</span>,<span class="string">'4,000Hz'</span>,<span class="string">'8,000Hz'</span>,<span class="string">'16,000Hz'</span>};
+</pre><pre class="codeoutput">
+Producing Data Tables</pre><h2>Produce Data Tables Z - Plane<a name="9"></a></h2><pre class="codeinput"><span class="comment">% New figure</span>
+figure;
+
+<span class="comment">% Create array to hold row lables</span>
+zPlaneDegString = cell(37, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = 0:10:360
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    zPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+<span class="comment">% Produce data table with title for identification</span>
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>,<span class="keyword">...</span>
+          <span class="string">'Average Z-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 690 820 20]);
+uitable(<span class="string">'data'</span>, mean_data_z,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, zPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 820 670]);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_01.png" alt=""> <h2>Produce Data Tables Y - Plane<a name="10"></a></h2><pre class="codeinput">figure;
+yPlaneDegString = cell(17, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = -160:20:160
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    yPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>,<span class="keyword">...</span>
+          <span class="string">'Average Y-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 360 820 20]);
+uitable(<span class="string">'data'</span>, mean_data_y,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, yPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 830 340]);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_02.png" alt=""> <h2>Produce Data Tables X - Plane<a name="11"></a></h2><pre class="codeinput">figure;
+xPlaneDegString = cell(17, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = -160:20:160
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    xPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>,<span class="keyword">...</span>
+          <span class="string">'Average X-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 360 820 20]);
+uitable(<span class="string">'data'</span>, mean_data_x,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, xPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 830 340]);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_03.png" alt=""> <h2>Manipulate Data for Plotting<a name="12"></a></h2><pre class="codeinput"><span class="comment">% Offset Data to enable plotting on 'polar' axis</span>
+mean_data_x = mean_data_x - offset;
+
+mean_data_y = mean_data_y - offset;
+
+mean_data_z = mean_data_z - offset;
+
+
+<span class="comment">% Re-order data in matrix and insert data from other matricies to</span>
+<span class="comment">% prepare a full 360 degree plot on a polar chart</span>
+temp = mean_data_y(1:8, :);
+mean_data_y(1:9, :) = mean_data_y(9:17, :);
+mean_data_y(10, :) = mean_data_z(19, :);
+mean_data_y(11:18, :) = temp(1:8, :);
+mean_data_y(19, :) = mean_data_z(37, :);
+
+temp = mean_data_x(1:8, :);
+mean_data_x(1:9, :) = mean_data_x(9:17, :);
+mean_data_x(10, :) = mean_data_z(28, :);
+mean_data_x(11:18, :) = temp(1:8, :);
+mean_data_x(19, :) = mean_data_z(10, :);
+</pre><h2>Plot Z-Plane Polar graph<a name="13"></a></h2><pre class="codeinput"><span class="comment">% New figure</span>
+figure;
+
+<span class="comment">% Plot dummy circular line to ensure correct axis scalling of plot</span>
+p = polar(zangle, (ones(1, 37) * -offset) + 1);
+
+<span class="comment">% Hide dummy line</span>
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+<span class="comment">% Plot low frequency octave bands</span>
+p0 = polar(zangle, (ones(1, 37) * -offset), <span class="string">'k'</span>); <span class="comment">% black</span>
+p1 = polar(zangle, mean_data_z(:, 1).', <span class="string">'b'</span>);     <span class="comment">% blue</span>
+p2 = polar(zangle, mean_data_z(:, 2).', <span class="string">'r'</span>);     <span class="comment">% red</span>
+p3 = polar(zangle, mean_data_z(:, 3).', <span class="string">'g'</span>);     <span class="comment">% green</span>
+hold <span class="string">off</span>;
+
+<span class="comment">% Set title for low frequency octave band plot</span>
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+
+<span class="comment">% Re-label axis so correct values are shown</span>
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+
+<span class="comment">% show ledgend</span>
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+<span class="comment">% Create a new figure</span>
+figure;
+p = polar(zangle, (ones(1, 37) * -offset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+<span class="comment">% Plot normal frequency octave bands</span>
+p0 = polar(zangle, (ones(1, 37) * -offset), <span class="string">'k'</span>); <span class="comment">% black</span>
+p4 = polar(zangle, mean_data_z(:, 4).', <span class="string">'b'</span>);     <span class="comment">% blue</span>
+p5 = polar(zangle, mean_data_z(:, 5).', <span class="string">'r'</span>);     <span class="comment">% red</span>
+p6 = polar(zangle, mean_data_z(:, 6).', <span class="string">'g'</span>);     <span class="comment">% green</span>
+p7 = polar(zangle, mean_data_z(:, 7).', <span class="string">'--b'</span>);   <span class="comment">% dashed blue</span>
+p8 = polar(zangle, mean_data_z(:, 8).', <span class="string">'--r'</span>);   <span class="comment">% dashed red</span>
+p9 = polar(zangle, mean_data_z(:, 9).', <span class="string">'--g'</span>);   <span class="comment">% dashed green</span>
+p10 = polar(zangle, mean_data_z(:, 10).', <span class="string">':b'</span>);  <span class="comment">% dotted blue</span>
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+       <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+       <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_04.png" alt=""> <img vspace="5" hspace="5" src="Average_Human_Data_05.png" alt=""> <h2>Plot Y-Plane Polar graph<a name="14"></a></h2><pre class="codeinput">figure;
+p = polar(yangle, (ones(1, 19) * -offset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(yangle, (ones(1, 19) * -offset), <span class="string">'k'</span>);
+p1 = polar(yangle, mean_data_y(:, 1).', <span class="string">'b'</span>);
+p2 = polar(yangle, mean_data_y(:, 2).', <span class="string">'r'</span>);
+p3 = polar(yangle, mean_data_y(:, 3).', <span class="string">'g'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+figure;
+p = polar(yangle, (ones(1, 19) * -offset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(yangle, (ones(1, 19) * -offset), <span class="string">'k'</span>);
+p4 = polar(yangle, mean_data_y(:, 4).', <span class="string">'b'</span>);
+p5 = polar(yangle, mean_data_y(:, 5).', <span class="string">'r'</span>);
+p6 = polar(yangle, mean_data_y(:, 6).', <span class="string">'g'</span>);
+p7 = polar(yangle, mean_data_y(:, 7).', <span class="string">'--b'</span>);
+p8 = polar(yangle, mean_data_y(:, 8).', <span class="string">'--r'</span>);
+p9 = polar(yangle, mean_data_y(:, 9).', <span class="string">'--g'</span>);
+p10 = polar(yangle, mean_data_y(:, 10).', <span class="string">':b'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+    <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+    <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+    <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_06.png" alt=""> <img vspace="5" hspace="5" src="Average_Human_Data_07.png" alt=""> <h2>Plot X-Plane Polar graph<a name="15"></a></h2><pre class="codeinput">figure;
+p = polar(xangle, (ones(1, 19) * -offset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(xangle, (ones(1, 19) * -offset), <span class="string">'k'</span>);
+p1 = polar(xangle, mean_data_x(:, 1).', <span class="string">'b'</span>);
+p2 = polar(xangle, mean_data_x(:, 2).', <span class="string">'r'</span>);
+p3 = polar(xangle, mean_data_x(:, 3).', <span class="string">'g'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+figure;
+p = polar(xangle, (ones(1, 19) * -offset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(xangle, (ones(1, 19) * -offset), <span class="string">'k'</span>);
+p4 = polar(xangle, mean_data_x(:, 4).', <span class="string">'b'</span>);
+p5 = polar(xangle, mean_data_x(:, 5).', <span class="string">'r'</span>);
+p6 = polar(xangle, mean_data_x(:, 6).', <span class="string">'g'</span>);
+p7 = polar(xangle, mean_data_x(:, 7).', <span class="string">'--b'</span>);
+p8 = polar(xangle, mean_data_x(:, 8).', <span class="string">'--r'</span>);
+p9 = polar(xangle, mean_data_x(:, 9).', <span class="string">'--g'</span>);
+p10 = polar(xangle, mean_data_x(:, 10).', <span class="string">':b'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+       <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+       <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Average_Human_Data_08.png" alt=""> <img vspace="5" hspace="5" src="Average_Human_Data_09.png" alt=""> <h2>End of Code<a name="16"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nAnalysis Complete\n'</span>);
+</pre><pre class="codeoutput">
+Analysis Complete
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Description of Function
+    
+    % This code reads in the 9 data tables from 3 different Sound Source   
+    % FAD tests (3 for each source, 1 for each plane) and averages them
+    % together over each plane. 3 new data tables along with new graphs
+    % are then output as in previous FAD analysis
+
+    
+%% User input
+
+% Define the folder in which data tables are stored
+folder = 'Data_Tables/';
+
+
+%% Definitions
+
+offset = -40;
+zangle = 0 : 2*pi/36 : 2*pi;
+xangle = 0 : 2*pi/18 : 2*pi;
+yangle = 0 : 2*pi/18 : 2*pi;
+graphTitleSound = 'Human Avg.';
+
+
+%% Extract Data X-Plane
+
+% Get Data from /u:/ sound - xPlane
+file_to_open = sprintf('%shuman, u/u_xPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_u_x =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /i:/ sound - xPlane
+file_to_open = sprintf('%shuman, i/i_xPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_i_x =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /a:/ sound - xPlane
+file_to_open = sprintf('%shuman, a/a_xPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_a_x =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+
+%% Extract Data Y-Plane
+
+% Get Data from /u:/ sound - yPlane
+file_to_open = sprintf('%shuman, u/u_yPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_u_y =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /i:/ sound - yPlane
+file_to_open = sprintf('%shuman, i/i_yPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_i_y =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /a:/ sound - yPlane
+file_to_open = sprintf('%shuman, a/a_yPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_a_y =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+
+%% Extract Data Z-Plane
+
+% Get Data from /u:/ sound - zPlane
+file_to_open = sprintf('%shuman, u/u_zPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_u_z =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /i:/ sound - zPlane
+file_to_open = sprintf('%shuman, i/i_zPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_i_z =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+% Get Data from /a:/ sound - zPlane
+file_to_open = sprintf('%shuman, a/a_zPlane_data.fig', folder);
+open(file_to_open);
+table_data_fig = findobj(gcf,'Type','uitable');
+if strcmpi( get(table_data_fig,'type'), 'uitable'),  %x is uitable
+   data_a_z =get(table_data_fig,'Data');   %this is the uitable data
+end
+close(gcf);
+
+
+%% Combine and Average Sound Data for Each Plane
+
+combined_matricies = cat(3, data_u_x, data_i_x, data_a_x);
+mean_data_x = mean(combined_matricies, 3);
+
+combined_matricies = cat(3, data_u_y, data_i_y, data_a_y);
+mean_data_y = mean(combined_matricies, 3);
+
+combined_matricies = cat(3, data_u_z, data_i_z, data_a_z);
+mean_data_z = mean(combined_matricies, 3);
+
+
+%% Produce Data Tables (setup)
+
+fprintf('\nProducing Data Tables');
+
+octaveBands = {'31.5Hz' ,'63Hz'   ,'125Hz'  ,'250Hz'  ,'500Hz'   ,...
+               '1,000Hz','2,000Hz','4,000Hz','8,000Hz','16,000Hz'};
+
+           
+%% Produce Data Tables Z - Plane 
+
+% New figure
+figure;
+
+% Create array to hold row lables
+zPlaneDegString = cell(37, 1);
+stepper = 1;
+for deg = 0:10:360
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    zPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+% Produce data table with title for identification
+uicontrol('style', 'text',...
+          'string',...
+          'Average Z-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 690 820 20]);
+uitable('data', mean_data_z,... 
+        'RowName', zPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 820 670]);
+
+    
+%% Produce Data Tables Y - Plane 
+
+figure;
+yPlaneDegString = cell(17, 1);
+stepper = 1;
+for deg = -160:20:160
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    yPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+uicontrol('style', 'text',...
+          'string',...
+          'Average Y-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 360 820 20]);
+uitable('data', mean_data_y,... 
+        'RowName', yPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 830 340]);
+    
+    
+%% Produce Data Tables X - Plane 
+
+figure;
+xPlaneDegString = cell(17, 1);
+stepper = 1;
+for deg = -160:20:160
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    xPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+uicontrol('style', 'text',...
+          'string',...
+          'Average X-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 360 820 20]);
+uitable('data', mean_data_x,... 
+        'RowName', xPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 830 340]);
+    
+    
+%% Manipulate Data for Plotting
+
+% Offset Data to enable plotting on 'polar' axis
+mean_data_x = mean_data_x - offset;
+
+mean_data_y = mean_data_y - offset;
+
+mean_data_z = mean_data_z - offset;
+
+
+% Re-order data in matrix and insert data from other matricies to 
+% prepare a full 360 degree plot on a polar chart
+temp = mean_data_y(1:8, :);
+mean_data_y(1:9, :) = mean_data_y(9:17, :);
+mean_data_y(10, :) = mean_data_z(19, :);
+mean_data_y(11:18, :) = temp(1:8, :);
+mean_data_y(19, :) = mean_data_z(37, :);
+
+temp = mean_data_x(1:8, :);
+mean_data_x(1:9, :) = mean_data_x(9:17, :);
+mean_data_x(10, :) = mean_data_z(28, :);
+mean_data_x(11:18, :) = temp(1:8, :);
+mean_data_x(19, :) = mean_data_z(10, :);
+
+
+%% Plot Z-Plane Polar graph
+
+% New figure
+figure;
+
+% Plot dummy circular line to ensure correct axis scalling of plot
+p = polar(zangle, (ones(1, 37) * -offset) + 1);
+
+% Hide dummy line
+set(p, 'Visible', 'off');
+hold on;
+
+% Plot low frequency octave bands 
+p0 = polar(zangle, (ones(1, 37) * -offset), 'k'); % black
+p1 = polar(zangle, mean_data_z(:, 1).', 'b');     % blue
+p2 = polar(zangle, mean_data_z(:, 2).', 'r');     % red
+p3 = polar(zangle, mean_data_z(:, 3).', 'g');     % green
+hold off;
+
+% Set title for low frequency octave band plot
+graphTitle = ... 
+    sprintf(...
+    'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+
+% Re-label axis so correct values are shown
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+
+% show ledgend
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+% Create a new figure
+figure;
+p = polar(zangle, (ones(1, 37) * -offset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+
+% Plot normal frequency octave bands 
+p0 = polar(zangle, (ones(1, 37) * -offset), 'k'); % black
+p4 = polar(zangle, mean_data_z(:, 4).', 'b');     % blue
+p5 = polar(zangle, mean_data_z(:, 5).', 'r');     % red
+p6 = polar(zangle, mean_data_z(:, 6).', 'g');     % green
+p7 = polar(zangle, mean_data_z(:, 7).', 'REPLACE_WITH_DASH_DASHb');   % dashed blue
+p8 = polar(zangle, mean_data_z(:, 8).', 'REPLACE_WITH_DASH_DASHr');   % dashed red
+p9 = polar(zangle, mean_data_z(:, 9).', 'REPLACE_WITH_DASH_DASHg');   % dashed green
+p10 = polar(zangle, mean_data_z(:, 10).', ':b');  % dotted blue
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+       '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+       '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+       'location', 'northwestoutside');
+
+
+%% Plot Y-Plane Polar graph
+
+figure;
+p = polar(yangle, (ones(1, 19) * -offset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(yangle, (ones(1, 19) * -offset), 'k');            
+p1 = polar(yangle, mean_data_y(:, 1).', 'b'); 
+p2 = polar(yangle, mean_data_y(:, 2).', 'r');
+p3 = polar(yangle, mean_data_y(:, 3).', 'g');
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+figure;
+p = polar(yangle, (ones(1, 19) * -offset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(yangle, (ones(1, 19) * -offset), 'k');
+p4 = polar(yangle, mean_data_y(:, 4).', 'b');   
+p5 = polar(yangle, mean_data_y(:, 5).', 'r');   
+p6 = polar(yangle, mean_data_y(:, 6).', 'g');    
+p7 = polar(yangle, mean_data_y(:, 7).', 'REPLACE_WITH_DASH_DASHb');    
+p8 = polar(yangle, mean_data_y(:, 8).', 'REPLACE_WITH_DASH_DASHr');    
+p9 = polar(yangle, mean_data_y(:, 9).', 'REPLACE_WITH_DASH_DASHg');    
+p10 = polar(yangle, mean_data_y(:, 10).', ':b');   
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+    '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+    '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+    'location', 'northwestoutside');
+
+
+%% Plot X-Plane Polar graph
+
+figure;
+p = polar(xangle, (ones(1, 19) * -offset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(xangle, (ones(1, 19) * -offset), 'k');             
+p1 = polar(xangle, mean_data_x(:, 1).', 'b'); 
+p2 = polar(xangle, mean_data_x(:, 2).', 'r');
+p3 = polar(xangle, mean_data_x(:, 3).', 'g');
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+figure;
+p = polar(xangle, (ones(1, 19) * -offset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(xangle, (ones(1, 19) * -offset), 'k');
+p4 = polar(xangle, mean_data_x(:, 4).', 'b');   
+p5 = polar(xangle, mean_data_x(:, 5).', 'r');    
+p6 = polar(xangle, mean_data_x(:, 6).', 'g');    
+p7 = polar(xangle, mean_data_x(:, 7).', 'REPLACE_WITH_DASH_DASHb');    
+p8 = polar(xangle, mean_data_x(:, 8).', 'REPLACE_WITH_DASH_DASHr');    
+p9 = polar(xangle, mean_data_x(:, 9).', 'REPLACE_WITH_DASH_DASHg');    
+p10 = polar(xangle, mean_data_x(:, 10).', ':b');  
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+       '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+       '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+       'location', 'northwestoutside');
+
+   
+%% End of Code
+
+fprintf('\nAnalysis Complete\n');
+
+##### SOURCE END #####
+--></body></html>

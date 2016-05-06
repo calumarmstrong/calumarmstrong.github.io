@@ -1,0 +1,1053 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Comparason_of_Frequency_Plots_2</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-05-06"><meta name="DC.source" content="Comparason_of_Frequency_Plots_2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Description of Code</a></li><li><a href="#2">User Inputs</a></li><li><a href="#3">Definitions</a></li><li><a href="#4">Analyze the z plane</a></li><li><a href="#5">Analyze the y plane</a></li><li><a href="#6">Analyze the x plane</a></li><li><a href="#7">Produce Data Tables (setup)</a></li><li><a href="#8">Produce Data Tables Z - Plane</a></li><li><a href="#9">Produce Data Tables Y - Plane</a></li><li><a href="#10">Produce Data Tables X - Plane</a></li><li><a href="#11">Manipulate Data for Polar Plots</a></li><li><a href="#12">Plot Polar Plots (setup)</a></li><li><a href="#13">Plot Z-Plane Polar graph</a></li><li><a href="#14">Plot Y-Plane Polar graph</a></li><li><a href="#15">Plot X-Plane Polar graph</a></li><li><a href="#16">End of Code</a></li></ul></div><h2>Description of Code<a name="1"></a></h2><pre class="codeinput">    <span class="comment">% This code will analyse a set of recordings made over 3 dimentions</span>
+    <span class="comment">% in an attempt to identify a source's Frequency-banded Angular</span>
+    <span class="comment">% Directionality - FAD.</span>
+    <span class="comment">% Graphs will be produced indicating the differences in frequency</span>
+    <span class="comment">% spectrum from a microphone placed at Azimuth = 0, Elevation = 0</span>
+    <span class="comment">% and a microphone placed at a test location.</span>
+    <span class="comment">% Octave band averaging will then take place and result in the</span>
+    <span class="comment">% output of data tables and polar plots produced for each of the</span>
+    <span class="comment">% three planes being analysed.</span>
+    <span class="comment">% Polar plots will be split into low frequencies (below 176.8Hz)</span>
+    <span class="comment">% and normal frequencies (176.8Hz - 22627.4Hz).</span>
+    <span class="comment">%</span>
+    <span class="comment">% Octave Bands found at</span>
+    <span class="comment">% Ref: http://apmr.matelys.com/Standards/OctaveBands.html</span>
+
+    <span class="comment">% Format of saved recording's filenames</span>
+    <span class="comment">% u_1_0_0_N.wav</span>
+    <span class="comment">% (sound)_(Repeat)_(azimuth)_(elevation)_(Normal / Test Recording).wav</span>
+</pre><h2>User Inputs<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Select Sound to Analyse</span>
+sound = <span class="string">'GLD'</span>;
+graphTitleSound = <span class="string">'GLD'</span>;
+
+<span class="comment">% Select Repeat to Analyse</span>
+repeat = 1;
+</pre><h2>Definitions<a name="3"></a></h2><pre class="codeinput"><span class="comment">% Sampling frequency used in recordings</span>
+fs = 96000;
+
+<span class="comment">% Declare matricies used for polar plots</span>
+zPlaneOctaveBandResponse = zeros(37, 10);
+yPlaneOctaveBandResponse = zeros(17, 10);
+xPlaneOctaveBandResponse = zeros(17, 10);
+</pre><h2>Analyze the z plane<a name="4"></a></h2><pre class="codeinput"><span class="comment">% Print status report</span>
+fprintf(<span class="string">'\nAnalyzing the Z-Plane\n'</span>);
+
+<span class="comment">% Begin a new figure</span>
+figure;
+
+<span class="comment">% Initiate counter and define plot array dimentions</span>
+x = 1;
+l = 5;
+m = 8;
+
+<span class="comment">% Analyse recordings</span>
+<span class="keyword">for</span> phi = 0:10:360
+
+    <span class="comment">% Calculate filenames</span>
+    azimuth = phi;
+    elevation = 0;
+    normalized_filename = sprintf(<span class="string">'%s_%d_%d_%d_N.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                  azimuth,elevation);
+    test_filename       = sprintf(<span class="string">'%s_%d_%d_%d_T.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                  azimuth,elevation);
+
+    <span class="comment">% Print status report</span>
+    disp([<span class="string">'Comparing '</span> normalized_filename <span class="string">' with '</span> test_filename <span class="string">''</span>]);
+
+    <span class="comment">% Plot comparason and save to array</span>
+    zPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(<span class="keyword">...</span>
+                                         normalized_filename,<span class="keyword">...</span>
+                                         test_filename,<span class="keyword">...</span>
+                                         azimuth,<span class="keyword">...</span>
+                                         elevation,<span class="keyword">...</span>
+                                         fs, x, l, m<span class="keyword">...</span>
+                                     );
+
+    <span class="comment">% Update counter</span>
+    x = x + 1;
+<span class="keyword">end</span>
+hold <span class="string">off</span>;
+</pre><pre class="codeoutput">
+Analyzing the Z-Plane
+Comparing GLD_1_0_0_N.wav with GLD_1_0_0_T.wav
+Comparing GLD_1_10_0_N.wav with GLD_1_10_0_T.wav
+Comparing GLD_1_20_0_N.wav with GLD_1_20_0_T.wav
+Comparing GLD_1_30_0_N.wav with GLD_1_30_0_T.wav
+Comparing GLD_1_40_0_N.wav with GLD_1_40_0_T.wav
+Comparing GLD_1_50_0_N.wav with GLD_1_50_0_T.wav
+Comparing GLD_1_60_0_N.wav with GLD_1_60_0_T.wav
+Comparing GLD_1_70_0_N.wav with GLD_1_70_0_T.wav
+Comparing GLD_1_80_0_N.wav with GLD_1_80_0_T.wav
+Comparing GLD_1_90_0_N.wav with GLD_1_90_0_T.wav
+Comparing GLD_1_100_0_N.wav with GLD_1_100_0_T.wav
+Comparing GLD_1_110_0_N.wav with GLD_1_110_0_T.wav
+Comparing GLD_1_120_0_N.wav with GLD_1_120_0_T.wav
+Comparing GLD_1_130_0_N.wav with GLD_1_130_0_T.wav
+Comparing GLD_1_140_0_N.wav with GLD_1_140_0_T.wav
+Comparing GLD_1_150_0_N.wav with GLD_1_150_0_T.wav
+Comparing GLD_1_160_0_N.wav with GLD_1_160_0_T.wav
+Comparing GLD_1_170_0_N.wav with GLD_1_170_0_T.wav
+Comparing GLD_1_180_0_N.wav with GLD_1_180_0_T.wav
+Comparing GLD_1_190_0_N.wav with GLD_1_190_0_T.wav
+Comparing GLD_1_200_0_N.wav with GLD_1_200_0_T.wav
+Comparing GLD_1_210_0_N.wav with GLD_1_210_0_T.wav
+Comparing GLD_1_220_0_N.wav with GLD_1_220_0_T.wav
+Comparing GLD_1_230_0_N.wav with GLD_1_230_0_T.wav
+Comparing GLD_1_240_0_N.wav with GLD_1_240_0_T.wav
+Comparing GLD_1_250_0_N.wav with GLD_1_250_0_T.wav
+Comparing GLD_1_260_0_N.wav with GLD_1_260_0_T.wav
+Comparing GLD_1_270_0_N.wav with GLD_1_270_0_T.wav
+Comparing GLD_1_280_0_N.wav with GLD_1_280_0_T.wav
+Comparing GLD_1_290_0_N.wav with GLD_1_290_0_T.wav
+Comparing GLD_1_300_0_N.wav with GLD_1_300_0_T.wav
+Comparing GLD_1_310_0_N.wav with GLD_1_310_0_T.wav
+Comparing GLD_1_320_0_N.wav with GLD_1_320_0_T.wav
+Comparing GLD_1_330_0_N.wav with GLD_1_330_0_T.wav
+Comparing GLD_1_340_0_N.wav with GLD_1_340_0_T.wav
+Comparing GLD_1_350_0_N.wav with GLD_1_350_0_T.wav
+Comparing GLD_1_360_0_N.wav with GLD_1_360_0_T.wav
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_01.png" alt=""> <h2>Analyze the y plane<a name="5"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nAnalyzing the Y-Plane\n'</span>);
+figure;
+x = 1;
+l = 4;
+m = 5;
+<span class="keyword">for</span> theta = -160:20:160
+
+    azimuth = 0;
+    elevation = theta;
+    normalized_filename = sprintf(<span class="string">'%s_%d_%d_%d_N.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                  azimuth,elevation);
+    test_filename       = sprintf(<span class="string">'%s_%d_%d_%d_T.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                  azimuth,elevation);
+
+    disp([<span class="string">'Comparing '</span> normalized_filename <span class="string">' with '</span> test_filename <span class="string">''</span>]);
+    yPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(<span class="keyword">...</span>
+                                         normalized_filename,<span class="keyword">...</span>
+                                         test_filename,<span class="keyword">...</span>
+                                         azimuth,<span class="keyword">...</span>
+                                         elevation,<span class="keyword">...</span>
+                                         fs, x, l, m<span class="keyword">...</span>
+                                     );
+
+    x = x + 1;
+<span class="keyword">end</span>
+hold <span class="string">off</span>;
+</pre><pre class="codeoutput">
+Analyzing the Y-Plane
+Comparing GLD_1_0_-160_N.wav with GLD_1_0_-160_T.wav
+Comparing GLD_1_0_-140_N.wav with GLD_1_0_-140_T.wav
+Comparing GLD_1_0_-120_N.wav with GLD_1_0_-120_T.wav
+Comparing GLD_1_0_-100_N.wav with GLD_1_0_-100_T.wav
+Comparing GLD_1_0_-80_N.wav with GLD_1_0_-80_T.wav
+Comparing GLD_1_0_-60_N.wav with GLD_1_0_-60_T.wav
+Comparing GLD_1_0_-40_N.wav with GLD_1_0_-40_T.wav
+Comparing GLD_1_0_-20_N.wav with GLD_1_0_-20_T.wav
+Comparing GLD_1_0_0_N.wav with GLD_1_0_0_T.wav
+Comparing GLD_1_0_20_N.wav with GLD_1_0_20_T.wav
+Comparing GLD_1_0_40_N.wav with GLD_1_0_40_T.wav
+Comparing GLD_1_0_60_N.wav with GLD_1_0_60_T.wav
+Comparing GLD_1_0_80_N.wav with GLD_1_0_80_T.wav
+Comparing GLD_1_0_100_N.wav with GLD_1_0_100_T.wav
+Comparing GLD_1_0_120_N.wav with GLD_1_0_120_T.wav
+Comparing GLD_1_0_140_N.wav with GLD_1_0_140_T.wav
+Comparing GLD_1_0_160_N.wav with GLD_1_0_160_T.wav
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_02.png" alt=""> <h2>Analyze the x plane<a name="6"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nAnalyzing the X-Plane\n'</span>);
+figure;
+x = 1;
+l = 4;
+m = 5;
+<span class="keyword">for</span> theta = -160:20:160
+
+    azimuth = 90;
+    elevation = theta;
+    normalized_filename = sprintf(<span class="string">'%s_%d_%d_%d_N.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                  azimuth,elevation);
+    test_filename       = sprintf(<span class="string">'%s_%d_%d_%d_T.wav'</span>, sound, repeat,<span class="keyword">...</span>
+                                   azimuth,elevation);
+
+    disp([<span class="string">'Comparing '</span> normalized_filename <span class="string">' with '</span> test_filename <span class="string">''</span>]);
+    xPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(<span class="keyword">...</span>
+                                         normalized_filename,<span class="keyword">...</span>
+                                         test_filename,<span class="keyword">...</span>
+                                         azimuth,<span class="keyword">...</span>
+                                         elevation,<span class="keyword">...</span>
+                                         fs, x, l, m<span class="keyword">...</span>
+                                     );
+
+    x = x + 1;
+<span class="keyword">end</span>
+hold <span class="string">off</span>;
+</pre><pre class="codeoutput">
+Analyzing the X-Plane
+Comparing GLD_1_90_-160_N.wav with GLD_1_90_-160_T.wav
+Comparing GLD_1_90_-140_N.wav with GLD_1_90_-140_T.wav
+Comparing GLD_1_90_-120_N.wav with GLD_1_90_-120_T.wav
+Comparing GLD_1_90_-100_N.wav with GLD_1_90_-100_T.wav
+Comparing GLD_1_90_-80_N.wav with GLD_1_90_-80_T.wav
+Comparing GLD_1_90_-60_N.wav with GLD_1_90_-60_T.wav
+Comparing GLD_1_90_-40_N.wav with GLD_1_90_-40_T.wav
+Comparing GLD_1_90_-20_N.wav with GLD_1_90_-20_T.wav
+Comparing GLD_1_90_0_N.wav with GLD_1_90_0_T.wav
+Comparing GLD_1_90_20_N.wav with GLD_1_90_20_T.wav
+Comparing GLD_1_90_40_N.wav with GLD_1_90_40_T.wav
+Comparing GLD_1_90_60_N.wav with GLD_1_90_60_T.wav
+Comparing GLD_1_90_80_N.wav with GLD_1_90_80_T.wav
+Comparing GLD_1_90_100_N.wav with GLD_1_90_100_T.wav
+Comparing GLD_1_90_120_N.wav with GLD_1_90_120_T.wav
+Comparing GLD_1_90_140_N.wav with GLD_1_90_140_T.wav
+Comparing GLD_1_90_160_N.wav with GLD_1_90_160_T.wav
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_03.png" alt=""> <h2>Produce Data Tables (setup)<a name="7"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nProducing Data Tables'</span>);
+
+octaveBands = {<span class="string">'31.5Hz'</span> ,<span class="string">'63Hz'</span>   ,<span class="string">'125Hz'</span>  ,<span class="string">'250Hz'</span>  ,<span class="string">'500Hz'</span>   ,<span class="keyword">...</span>
+               <span class="string">'1,000Hz'</span>,<span class="string">'2,000Hz'</span>,<span class="string">'4,000Hz'</span>,<span class="string">'8,000Hz'</span>,<span class="string">'16,000Hz'</span>};
+</pre><pre class="codeoutput">
+Producing Data Tables</pre><h2>Produce Data Tables Z - Plane<a name="8"></a></h2><pre class="codeinput"><span class="comment">% New figure</span>
+figure;
+
+<span class="comment">% Create array to hold row lables</span>
+zPlaneDegString = cell(37, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = 0:10:360
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    zPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+<span class="comment">% Produce data table with title for identification</span>
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>, <span class="string">'Z-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 690 820 20]);
+uitable(<span class="string">'data'</span>, zPlaneOctaveBandResponse,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, zPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 820 670]);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_04.png" alt=""> <h2>Produce Data Tables Y - Plane<a name="9"></a></h2><pre class="codeinput"><span class="comment">% (optional) Exclude N/A recordings where body blocking occured</span>
+<span class="comment">% yPlaneOctaveBandResponse(3:4, :) = NaN; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+figure;
+yPlaneDegString = cell(17, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = -160:20:160
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    yPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>, <span class="string">'Y-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 360 820 20]);
+uitable(<span class="string">'data'</span>, yPlaneOctaveBandResponse,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, yPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 830 340]);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_05.png" alt=""> <h2>Produce Data Tables X - Plane<a name="10"></a></h2><pre class="codeinput"><span class="comment">% xPlaneOctaveBandResponse(4:5, :) = NaN; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+figure;
+xPlaneDegString = cell(17, 1);
+stepper = 1;
+<span class="keyword">for</span> deg = -160:20:160
+
+    string = cellstr(sprintf(<span class="string">'%d%c'</span>, deg, char(176)));
+    xPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+
+<span class="keyword">end</span>
+
+uicontrol(<span class="string">'style'</span>, <span class="string">'text'</span>,<span class="keyword">...</span>
+          <span class="string">'string'</span>, <span class="string">'X-Plane Responce in dB relative to 0 degrees'</span>,<span class="keyword">...</span>
+          <span class="string">'Position'</span>, [10 360 820 20]);
+uitable(<span class="string">'data'</span>, xPlaneOctaveBandResponse,<span class="keyword">...</span>
+        <span class="string">'RowName'</span>, xPlaneDegString, <span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>, octaveBands,<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>, {75},<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[10 10 830 340]);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_06.png" alt=""> <h2>Manipulate Data for Polar Plots<a name="11"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nManipulating Data for Polar Plots'</span>);
+
+<span class="comment">% ----------------------------------------------------------------------</span>
+<span class="comment">%</span>
+<span class="comment">% Z- Plane</span>
+<span class="comment">%</span>
+
+<span class="comment">% Calculate angle array</span>
+zangle = 0 : 2*pi/36 : 2*pi;
+
+<span class="comment">% Add offset to data in order to plot correctly on polar plot</span>
+<span class="comment">% (positive values only)</span>
+zoffset = -40;
+zPlaneOctaveBandResponse = zPlaneOctaveBandResponse - zoffset;
+
+<span class="comment">% ----------------------------------------------------------------------</span>
+<span class="comment">%</span>
+<span class="comment">% Y- Plane</span>
+<span class="comment">%</span>
+
+yangle = 0 : 2*pi/18 : 2*pi;
+
+<span class="comment">% Re-order data in matrix and insert data from other matricies to</span>
+<span class="comment">% prepare a full 360 degree plot on a polar chart</span>
+temp = yPlaneOctaveBandResponse(1:8, :);
+yPlaneOctaveBandResponse(1:9, :) = yPlaneOctaveBandResponse(9:17, :);
+yPlaneOctaveBandResponse(10, :) = zPlaneOctaveBandResponse(19, :)<span class="keyword">...</span>
+                                  + zoffset;
+yPlaneOctaveBandResponse(11:18, :) = temp(1:8, :);
+yPlaneOctaveBandResponse(19, :) = zPlaneOctaveBandResponse(37, :)<span class="keyword">...</span>
+                                  + zoffset;
+
+yoffset = -40;
+yPlaneOctaveBandResponse = yPlaneOctaveBandResponse - yoffset;
+
+<span class="comment">% ----------------------------------------------------------------------</span>
+<span class="comment">%</span>
+<span class="comment">% X- Plane</span>
+<span class="comment">%</span>
+
+xangle = 0 : 2*pi/18 : 2*pi;
+
+temp = xPlaneOctaveBandResponse(1:8, :);
+xPlaneOctaveBandResponse(1:9, :) = xPlaneOctaveBandResponse(9:17, :);
+xPlaneOctaveBandResponse(10, :) = zPlaneOctaveBandResponse(28, :)<span class="keyword">...</span>
+                                  + zoffset;
+xPlaneOctaveBandResponse(11:18, :) = temp(1:8, :);
+xPlaneOctaveBandResponse(19, :) = zPlaneOctaveBandResponse(10, :)<span class="keyword">...</span>
+                                  + zoffset;
+
+xoffset = -40;
+xPlaneOctaveBandResponse = xPlaneOctaveBandResponse - xoffset;
+</pre><pre class="codeoutput">
+Manipulating Data for Polar Plots</pre><h2>Plot Polar Plots (setup)<a name="12"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nProducing Polar Plots'</span>)
+</pre><pre class="codeoutput">
+Producing Polar Plots</pre><h2>Plot Z-Plane Polar graph<a name="13"></a></h2><pre class="codeinput"><span class="comment">% New figure</span>
+figure;
+
+<span class="comment">% Plot dummy circular line to ensure correct axis scalling of plot</span>
+p = polar(zangle, (ones(1, 37) * -zoffset) + 1);
+
+<span class="comment">% Hide dummy line</span>
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+<span class="comment">% Plot low frequency octave bands</span>
+p0 = polar(zangle, (ones(1, 37) * -zoffset), <span class="string">'k'</span>);
+p1 = polar(zangle, zPlaneOctaveBandResponse(:, 1).', <span class="string">'b'</span>);
+p2 = polar(zangle, zPlaneOctaveBandResponse(:, 2).', <span class="string">'r'</span>);
+p3 = polar(zangle, zPlaneOctaveBandResponse(:, 3).', <span class="string">'g'</span>);
+hold <span class="string">off</span>;
+
+<span class="comment">% Set title for low frequency octave band plot</span>
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+
+<span class="comment">% Re-label axis so correct values are shown</span>
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+
+<span class="comment">% show ledgend</span>
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+<span class="comment">% Create a new figure</span>
+figure;
+p = polar(zangle, (ones(1, 37) * -zoffset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+
+<span class="comment">% Plot normal frequency octave bands</span>
+p0 = polar(zangle, (ones(1, 37) * -zoffset), <span class="string">'k'</span>);
+p4 = polar(zangle, zPlaneOctaveBandResponse(:, 4).', <span class="string">'b'</span>);
+p5 = polar(zangle, zPlaneOctaveBandResponse(:, 5).', <span class="string">'r'</span>);
+p6 = polar(zangle, zPlaneOctaveBandResponse(:, 6).', <span class="string">'g'</span>);
+p7 = polar(zangle, zPlaneOctaveBandResponse(:, 7).', <span class="string">'--b'</span>);
+p8 = polar(zangle, zPlaneOctaveBandResponse(:, 8).', <span class="string">'--r'</span>);
+p9 = polar(zangle, zPlaneOctaveBandResponse(:, 9).', <span class="string">'--g'</span>);
+p10 = polar(zangle, zPlaneOctaveBandResponse(:, 10).', <span class="string">':b'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+       <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+       <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_07.png" alt=""> <img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_08.png" alt=""> <h2>Plot Y-Plane Polar graph<a name="14"></a></h2><pre class="codeinput">figure;
+p = polar(yangle, (ones(1, 19) * -yoffset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(yangle, (ones(1, 19) * -yoffset), <span class="string">'k'</span>);
+p1 = polar(yangle, yPlaneOctaveBandResponse(:, 1).', <span class="string">'b'</span>);
+p2 = polar(yangle, yPlaneOctaveBandResponse(:, 2).', <span class="string">'r'</span>);
+p3 = polar(yangle, yPlaneOctaveBandResponse(:, 3).', <span class="string">'g'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+figure;
+p = polar(yangle, (ones(1, 19) * -yoffset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(yangle, (ones(1, 19) * -yoffset), <span class="string">'k'</span>);
+p4 = polar(yangle, yPlaneOctaveBandResponse(:, 4).', <span class="string">'b'</span>);
+p5 = polar(yangle, yPlaneOctaveBandResponse(:, 5).', <span class="string">'r'</span>);
+p6 = polar(yangle, yPlaneOctaveBandResponse(:, 6).', <span class="string">'g'</span>);
+p7 = polar(yangle, yPlaneOctaveBandResponse(:, 7).', <span class="string">'--b'</span>);
+p8 = polar(yangle, yPlaneOctaveBandResponse(:, 8).', <span class="string">'--r'</span>);
+p9 = polar(yangle, yPlaneOctaveBandResponse(:, 9).', <span class="string">'--g'</span>);
+p10 = polar(yangle, yPlaneOctaveBandResponse(:, 10).', <span class="string">':b'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+       <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+       <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_09.png" alt=""> <img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_10.png" alt=""> <h2>Plot X-Plane Polar graph<a name="15"></a></h2><pre class="codeinput">figure;
+p = polar(xangle, (ones(1, 19) * -xoffset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(xangle, (ones(1, 19) * -xoffset), <span class="string">'k'</span>);
+p1 = polar(xangle, xPlaneOctaveBandResponse(:, 1).', <span class="string">'b'</span>);
+p2 = polar(xangle, xPlaneOctaveBandResponse(:, 2).', <span class="string">'r'</span>);
+p3 = polar(xangle, xPlaneOctaveBandResponse(:, 3).', <span class="string">'g'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p1, p2, p3], <span class="string">'0dB Marker'</span>, <span class="string">'31.5Hz'</span>,<span class="string">'63Hz'</span>,<span class="string">'125Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+
+figure;
+p = polar(xangle, (ones(1, 19) * -xoffset) + 1);
+set(p, <span class="string">'Visible'</span>, <span class="string">'off'</span>);
+hold <span class="string">on</span>;
+p0 = polar(xangle, (ones(1, 19) * -xoffset), <span class="string">'k'</span>);
+p4 = polar(xangle, xPlaneOctaveBandResponse(:, 4).', <span class="string">'b'</span>);
+p5 = polar(xangle, xPlaneOctaveBandResponse(:, 5).', <span class="string">'r'</span>);
+p6 = polar(xangle, xPlaneOctaveBandResponse(:, 6).', <span class="string">'g'</span>);
+p7 = polar(xangle, xPlaneOctaveBandResponse(:, 7).', <span class="string">'--b'</span>);
+p8 = polar(xangle, xPlaneOctaveBandResponse(:, 8).', <span class="string">'--r'</span>);
+p9 = polar(xangle, xPlaneOctaveBandResponse(:, 9).', <span class="string">'--g'</span>);
+p10 = polar(xangle, xPlaneOctaveBandResponse(:, 10).', <span class="string">':b'</span>);
+hold <span class="string">off</span>;
+
+graphTitle = <span class="keyword">...</span>
+    sprintf(<span class="keyword">...</span>
+    <span class="string">'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted'</span>,<span class="keyword">...</span>
+    graphTitleSound, char(176)<span class="keyword">...</span>
+    );
+title(graphTitle);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  50'</span>),<span class="string">'String'</span>, <span class="string">'+10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  40'</span>),<span class="string">'String'</span>, <span class="string">'  0 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  30'</span>),<span class="string">'String'</span>, <span class="string">'-10 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  20'</span>),<span class="string">'String'</span>, <span class="string">'-20 dB'</span>);
+set(findall(gca, <span class="string">'String'</span>, <span class="string">'  10'</span>),<span class="string">'String'</span>, <span class="string">'-30 dB'</span>);
+legend([p0, p4, p5, p6, p7, p8, p9, p10],<span class="keyword">...</span>
+       <span class="string">'0dB Marker'</span>, <span class="string">'250Hz'</span>,<span class="string">'500Hz'</span> ,<span class="string">'1000Hz'</span> ,<span class="keyword">...</span>
+       <span class="string">'2000Hz'</span>    ,<span class="string">'4000Hz'</span>,<span class="string">'8000Hz'</span>,<span class="string">'16000Hz'</span>,<span class="keyword">...</span>
+       <span class="string">'location'</span>, <span class="string">'northwestoutside'</span>);
+</pre><img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_11.png" alt=""> <img vspace="5" hspace="5" src="Comparason_of_Frequency_Plots_2_12.png" alt=""> <h2>End of Code<a name="16"></a></h2><pre class="codeinput">fprintf(<span class="string">'\nAnalysis Complete\n'</span>);
+</pre><pre class="codeoutput">
+Analysis Complete
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Description of Code
+    
+    % This code will analyse a set of recordings made over 3 dimentions 
+    % in an attempt to identify a source's Frequency-banded Angular 
+    % Directionality - FAD.
+    % Graphs will be produced indicating the differences in frequency
+    % spectrum from a microphone placed at Azimuth = 0, Elevation = 0 
+    % and a microphone placed at a test location. 
+    % Octave band averaging will then take place and result in the 
+    % output of data tables and polar plots produced for each of the 
+    % three planes being analysed. 
+    % Polar plots will be split into low frequencies (below 176.8Hz) 
+    % and normal frequencies (176.8Hz - 22627.4Hz).
+    %
+    % Octave Bands found at
+    % Ref: http://apmr.matelys.com/Standards/OctaveBands.html 
+    
+    % Format of saved recording's filenames
+    % u_1_0_0_N.wav
+    % (sound)_(Repeat)_(azimuth)_(elevation)_(Normal / Test Recording).wav
+ 
+        
+%% User Inputs    
+    
+% Select Sound to Analyse
+sound = 'GLD';
+graphTitleSound = 'GLD';
+
+% Select Repeat to Analyse
+repeat = 1;
+
+
+%% Definitions
+
+% Sampling frequency used in recordings
+fs = 96000;
+
+% Declare matricies used for polar plots
+zPlaneOctaveBandResponse = zeros(37, 10);
+yPlaneOctaveBandResponse = zeros(17, 10);
+xPlaneOctaveBandResponse = zeros(17, 10);
+
+
+%% Analyze the z plane
+
+% Print status report
+fprintf('\nAnalyzing the Z-Plane\n');
+
+% Begin a new figure
+figure;
+
+% Initiate counter and define plot array dimentions
+x = 1;
+l = 5;
+m = 8;
+
+% Analyse recordings
+for phi = 0:10:360
+        
+    % Calculate filenames
+    azimuth = phi;
+    elevation = 0;
+    normalized_filename = sprintf('%s_%d_%d_%d_N.wav', sound, repeat,... 
+                                  azimuth,elevation);
+    test_filename       = sprintf('%s_%d_%d_%d_T.wav', sound, repeat,... 
+                                  azimuth,elevation);
+
+    % Print status report
+    disp(['Comparing ' normalized_filename ' with ' test_filename '']);
+
+    % Plot comparason and save to array
+    zPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(...
+                                         normalized_filename,...
+                                         test_filename,...
+                                         azimuth,...
+                                         elevation,...
+                                         fs, x, l, m...
+                                     );
+
+    % Update counter
+    x = x + 1;
+end
+hold off;
+
+
+%% Analyze the y plane
+
+fprintf('\nAnalyzing the Y-Plane\n');
+figure;
+x = 1;
+l = 4;
+m = 5;
+for theta = -160:20:160
+        
+    azimuth = 0;
+    elevation = theta;
+    normalized_filename = sprintf('%s_%d_%d_%d_N.wav', sound, repeat,...
+                                  azimuth,elevation);
+    test_filename       = sprintf('%s_%d_%d_%d_T.wav', sound, repeat,...
+                                  azimuth,elevation);
+
+    disp(['Comparing ' normalized_filename ' with ' test_filename '']);
+    yPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(...
+                                         normalized_filename,...
+                                         test_filename,...
+                                         azimuth,...
+                                         elevation,...
+                                         fs, x, l, m...
+                                     );
+
+    x = x + 1;
+end
+hold off;
+
+
+%% Analyze the x plane
+
+fprintf('\nAnalyzing the X-Plane\n');
+figure;
+x = 1;
+l = 4;
+m = 5;
+for theta = -160:20:160
+        
+    azimuth = 90;
+    elevation = theta;
+    normalized_filename = sprintf('%s_%d_%d_%d_N.wav', sound, repeat,...
+                                  azimuth,elevation);
+    test_filename       = sprintf('%s_%d_%d_%d_T.wav', sound, repeat,...
+                                   azimuth,elevation);
+
+    disp(['Comparing ' normalized_filename ' with ' test_filename '']);
+    xPlaneOctaveBandResponse(x, :) = PlotComparasonSpectrum_2(...
+                                         normalized_filename,...
+                                         test_filename,...
+                                         azimuth,...
+                                         elevation,...
+                                         fs, x, l, m...
+                                     );
+
+    x = x + 1;
+end
+hold off;
+
+%% Produce Data Tables (setup)
+
+fprintf('\nProducing Data Tables');
+
+octaveBands = {'31.5Hz' ,'63Hz'   ,'125Hz'  ,'250Hz'  ,'500Hz'   ,...
+               '1,000Hz','2,000Hz','4,000Hz','8,000Hz','16,000Hz'};
+
+
+%% Produce Data Tables Z - Plane 
+
+% New figure
+figure;
+
+% Create array to hold row lables
+zPlaneDegString = cell(37, 1);
+stepper = 1;
+for deg = 0:10:360
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    zPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+% Produce data table with title for identification
+uicontrol('style', 'text',...
+          'string', 'Z-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 690 820 20]);
+uitable('data', zPlaneOctaveBandResponse,... 
+        'RowName', zPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 820 670]);
+
+    
+%% Produce Data Tables Y - Plane
+
+% (optional) Exclude N/A recordings where body blocking occured
+% yPlaneOctaveBandResponse(3:4, :) = NaN; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+figure;
+yPlaneDegString = cell(17, 1);
+stepper = 1;
+for deg = -160:20:160
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    yPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+uicontrol('style', 'text',...
+          'string', 'Y-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 360 820 20]);
+uitable('data', yPlaneOctaveBandResponse,... 
+        'RowName', yPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 830 340]);
+    
+    
+%% Produce Data Tables X - Plane
+    
+% xPlaneOctaveBandResponse(4:5, :) = NaN; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+
+figure;
+xPlaneDegString = cell(17, 1);
+stepper = 1;
+for deg = -160:20:160
+    
+    string = cellstr(sprintf('%d%c', deg, char(176)));
+    xPlaneDegString(stepper) = string;
+    stepper = stepper + 1;
+    
+end
+
+uicontrol('style', 'text',...
+          'string', 'X-Plane Responce in dB relative to 0 degrees',...
+          'Position', [10 360 820 20]);
+uitable('data', xPlaneOctaveBandResponse,... 
+        'RowName', xPlaneDegString, ...
+        'ColumnName', octaveBands,...
+        'ColumnWidth', {75},...
+        'Position',[10 10 830 340]);
+    
+    
+%% Manipulate Data for Polar Plots
+
+fprintf('\nManipulating Data for Polar Plots');
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%
+% Z- Plane 
+%
+
+% Calculate angle array 
+zangle = 0 : 2*pi/36 : 2*pi;
+
+% Add offset to data in order to plot correctly on polar plot 
+% (positive values only)
+zoffset = -40;
+zPlaneOctaveBandResponse = zPlaneOctaveBandResponse - zoffset;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%
+% Y- Plane
+%
+
+yangle = 0 : 2*pi/18 : 2*pi;
+
+% Re-order data in matrix and insert data from other matricies to 
+% prepare a full 360 degree plot on a polar chart
+temp = yPlaneOctaveBandResponse(1:8, :);
+yPlaneOctaveBandResponse(1:9, :) = yPlaneOctaveBandResponse(9:17, :);
+yPlaneOctaveBandResponse(10, :) = zPlaneOctaveBandResponse(19, :)...
+                                  + zoffset;
+yPlaneOctaveBandResponse(11:18, :) = temp(1:8, :);
+yPlaneOctaveBandResponse(19, :) = zPlaneOctaveBandResponse(37, :)...
+                                  + zoffset;
+
+yoffset = -40;
+yPlaneOctaveBandResponse = yPlaneOctaveBandResponse - yoffset;
+
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%
+% X- Plane
+%
+
+xangle = 0 : 2*pi/18 : 2*pi;
+
+temp = xPlaneOctaveBandResponse(1:8, :);
+xPlaneOctaveBandResponse(1:9, :) = xPlaneOctaveBandResponse(9:17, :);
+xPlaneOctaveBandResponse(10, :) = zPlaneOctaveBandResponse(28, :)...
+                                  + zoffset;
+xPlaneOctaveBandResponse(11:18, :) = temp(1:8, :);
+xPlaneOctaveBandResponse(19, :) = zPlaneOctaveBandResponse(10, :)...
+                                  + zoffset;
+
+xoffset = -40;
+xPlaneOctaveBandResponse = xPlaneOctaveBandResponse - xoffset;
+
+
+%% Plot Polar Plots (setup)
+
+fprintf('\nProducing Polar Plots')
+
+
+%% Plot Z-Plane Polar graph
+
+% New figure
+figure;
+
+% Plot dummy circular line to ensure correct axis scalling of plot
+p = polar(zangle, (ones(1, 37) * -zoffset) + 1);
+
+% Hide dummy line
+set(p, 'Visible', 'off');
+hold on;
+
+% Plot low frequency octave bands 
+p0 = polar(zangle, (ones(1, 37) * -zoffset), 'k');             
+p1 = polar(zangle, zPlaneOctaveBandResponse(:, 1).', 'b');     
+p2 = polar(zangle, zPlaneOctaveBandResponse(:, 2).', 'r');     
+p3 = polar(zangle, zPlaneOctaveBandResponse(:, 3).', 'g');     
+hold off;
+
+% Set title for low frequency octave band plot
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+
+% Re-label axis so correct values are shown
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+
+% show ledgend
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+% Create a new figure
+figure;
+p = polar(zangle, (ones(1, 37) * -zoffset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+
+% Plot normal frequency octave bands 
+p0 = polar(zangle, (ones(1, 37) * -zoffset), 'k');             
+p4 = polar(zangle, zPlaneOctaveBandResponse(:, 4).', 'b');     
+p5 = polar(zangle, zPlaneOctaveBandResponse(:, 5).', 'r');     
+p6 = polar(zangle, zPlaneOctaveBandResponse(:, 6).', 'g');     
+p7 = polar(zangle, zPlaneOctaveBandResponse(:, 7).', 'REPLACE_WITH_DASH_DASHb');   
+p8 = polar(zangle, zPlaneOctaveBandResponse(:, 8).', 'REPLACE_WITH_DASH_DASHr');   
+p9 = polar(zangle, zPlaneOctaveBandResponse(:, 9).', 'REPLACE_WITH_DASH_DASHg');   
+p10 = polar(zangle, zPlaneOctaveBandResponse(:, 10).', ':b');  
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Z-Plane: Azimuth = plotted, Elevation = 0%c',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+       '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+       '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+       'location', 'northwestoutside');
+
+
+%% Plot Y-Plane Polar graph
+
+figure;
+p = polar(yangle, (ones(1, 19) * -yoffset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(yangle, (ones(1, 19) * -yoffset), 'k');            
+p1 = polar(yangle, yPlaneOctaveBandResponse(:, 1).', 'b'); 
+p2 = polar(yangle, yPlaneOctaveBandResponse(:, 2).', 'r');
+p3 = polar(yangle, yPlaneOctaveBandResponse(:, 3).', 'g');
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+figure;
+p = polar(yangle, (ones(1, 19) * -yoffset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(yangle, (ones(1, 19) * -yoffset), 'k');
+p4 = polar(yangle, yPlaneOctaveBandResponse(:, 4).', 'b');   
+p5 = polar(yangle, yPlaneOctaveBandResponse(:, 5).', 'r');   
+p6 = polar(yangle, yPlaneOctaveBandResponse(:, 6).', 'g');    
+p7 = polar(yangle, yPlaneOctaveBandResponse(:, 7).', 'REPLACE_WITH_DASH_DASHb');    
+p8 = polar(yangle, yPlaneOctaveBandResponse(:, 8).', 'REPLACE_WITH_DASH_DASHr');    
+p9 = polar(yangle, yPlaneOctaveBandResponse(:, 9).', 'REPLACE_WITH_DASH_DASHg');    
+p10 = polar(yangle, yPlaneOctaveBandResponse(:, 10).', ':b');   
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, Y-Plane: Azimuth = 0%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+       '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+       '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+       'location', 'northwestoutside');
+
+
+%% Plot X-Plane Polar graph
+
+figure;
+p = polar(xangle, (ones(1, 19) * -xoffset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(xangle, (ones(1, 19) * -xoffset), 'k');             
+p1 = polar(xangle, xPlaneOctaveBandResponse(:, 1).', 'b'); 
+p2 = polar(xangle, xPlaneOctaveBandResponse(:, 2).', 'r');
+p3 = polar(xangle, xPlaneOctaveBandResponse(:, 3).', 'g');
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p1, p2, p3], '0dB Marker', '31.5Hz','63Hz','125Hz',...
+       'location', 'northwestoutside');
+
+figure;
+p = polar(xangle, (ones(1, 19) * -xoffset) + 1);
+set(p, 'Visible', 'off');
+hold on;
+p0 = polar(xangle, (ones(1, 19) * -xoffset), 'k');
+p4 = polar(xangle, xPlaneOctaveBandResponse(:, 4).', 'b');   
+p5 = polar(xangle, xPlaneOctaveBandResponse(:, 5).', 'r');    
+p6 = polar(xangle, xPlaneOctaveBandResponse(:, 6).', 'g');    
+p7 = polar(xangle, xPlaneOctaveBandResponse(:, 7).', 'REPLACE_WITH_DASH_DASHb');    
+p8 = polar(xangle, xPlaneOctaveBandResponse(:, 8).', 'REPLACE_WITH_DASH_DASHr');    
+p9 = polar(xangle, xPlaneOctaveBandResponse(:, 9).', 'REPLACE_WITH_DASH_DASHg');    
+p10 = polar(xangle, xPlaneOctaveBandResponse(:, 10).', ':b');  
+hold off;
+
+graphTitle = ...
+    sprintf(...
+    'Source: %s, X-Plane: Azimuth = 90%c, Elevation = plotted',...
+    graphTitleSound, char(176)...
+    );
+title(graphTitle);
+set(findall(gca, 'String', '  50'),'String', '+10 dB');
+set(findall(gca, 'String', '  40'),'String', '  0 dB');
+set(findall(gca, 'String', '  30'),'String', '-10 dB');
+set(findall(gca, 'String', '  20'),'String', '-20 dB');
+set(findall(gca, 'String', '  10'),'String', '-30 dB');
+legend([p0, p4, p5, p6, p7, p8, p9, p10],...
+       '0dB Marker', '250Hz','500Hz' ,'1000Hz' ,...
+       '2000Hz'    ,'4000Hz','8000Hz','16000Hz',...
+       'location', 'northwestoutside');
+
+   
+%% End of Code 
+
+fprintf('\nAnalysis Complete\n');
+##### SOURCE END #####
+--></body></html>

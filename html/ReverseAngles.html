@@ -1,0 +1,203 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ReverseAngles</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-05-06"><meta name="DC.source" content="ReverseAngles.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Description of Code</a></li><li><a href="#2">User Input</a></li><li><a href="#3">Rename Files</a></li></ul></div><h2>Description of Code<a name="1"></a></h2><pre class="codeinput">    <span class="comment">% This code will rename a set of recordings so that the angles</span>
+    <span class="comment">% marked in their filenames will now read in reverse order. For</span>
+    <span class="comment">% example,</span>
+    <span class="comment">% 10Degrees -&gt; 350Degrees</span>
+    <span class="comment">% 20Degrees -&gt; 340Degrees etc.</span>
+
+    <span class="comment">% Format of saved recording's filenames</span>
+    <span class="comment">% u_1_0_0_N.wav</span>
+    <span class="comment">% (sound)_(Repeat)_(azimuth)_(elevation)_(Normal / Test Recording).wav</span>
+</pre><h2>User Input<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Select Sound to Analyse</span>
+sound = <span class="string">'u'</span>;
+repeat = 1;
+
+<span class="comment">% Sampling Frequency</span>
+fs = 96000;
+
+<span class="comment">% Select folder files are held in</span>
+folder = sprintf(<span class="string">'Final_Recordings_1/'</span>);
+
+<span class="comment">% Select a new folder for renamed files to be saved</span>
+newFolder = sprintf(<span class="string">'Final_Recordings_angle_reversed/'</span>);
+</pre><h2>Rename Files<a name="3"></a></h2><pre class="codeinput"><span class="keyword">for</span> phi = 0:10:360
+
+        <span class="comment">% Calculate filenames</span>
+        azimuth = phi;
+        elevation = 0;
+
+        normSignalFilename = sprintf(<span class="string">'%s_%d_%d_%d_N.wav'</span>,<span class="keyword">...</span>
+                                     sound, repeat, azimuth,elevation);
+        testSignalFilename = sprintf(<span class="string">'%s_%d_%d_%d_T.wav'</span>,<span class="keyword">...</span>
+                                     sound, repeat, azimuth,elevation);
+        normSignalFilepath = sprintf(<span class="string">'%s%s'</span>,<span class="keyword">...</span>
+                                     folder, normSignalFilename);
+        testSignalFilepath = sprintf(<span class="string">'%s%s'</span>,<span class="keyword">...</span>
+                                     folder, testSignalFilename);
+
+        <span class="comment">% Read in files</span>
+        [normalData, fs] = audioread(normSignalFilepath);
+        [testData, fs] = audioread(testSignalFilepath);
+
+        <span class="comment">% Calculate new filenames</span>
+        new_azimuth = 360 - azimuth;
+
+        new_normSignalFilename = sprintf(<span class="string">'%s_%d_%d_%d_N.wav'</span>,<span class="keyword">...</span>
+                                         sound, repeat,<span class="keyword">...</span>
+                                         new_azimuth,elevation);
+        new_testSignalFilename = sprintf(<span class="string">'%s_%d_%d_%d_T.wav'</span>,<span class="keyword">...</span>
+                                         sound, repeat,<span class="keyword">...</span>
+                                         new_azimuth,elevation);
+        new_normSignalFilepath = sprintf(<span class="string">'%s%s'</span>,<span class="keyword">...</span>
+                                         newFolder,<span class="keyword">...</span>
+                                         new_normSignalFilename);
+        new_testSignalFilepath = sprintf(<span class="string">'%s%s'</span>,<span class="keyword">...</span>
+                                         newFolder,<span class="keyword">...</span>
+                                         new_testSignalFilename);
+
+        <span class="comment">% Save files with new filenames</span>
+        audiowrite(new_normSignalFilepath, normalData,<span class="keyword">...</span>
+                   fs, <span class="string">'BitsPerSample'</span>, 24);
+        audiowrite(new_testSignalFilepath, testData,<span class="keyword">...</span>
+                   fs, <span class="string">'BitsPerSample'</span>, 24);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Description of Code
+    
+    % This code will rename a set of recordings so that the angles
+    % marked in their filenames will now read in reverse order. For
+    % example, 
+    % 10Degrees -> 350Degrees
+    % 20Degrees -> 340Degrees etc.
+    
+    % Format of saved recording's filenames
+    % u_1_0_0_N.wav
+    % (sound)_(Repeat)_(azimuth)_(elevation)_(Normal / Test Recording).wav
+    
+%% User Input   
+
+% Select Sound to Analyse
+sound = 'u';
+repeat = 1;
+
+% Sampling Frequency
+fs = 96000;
+
+% Select folder files are held in
+folder = sprintf('Final_Recordings_1/');
+
+% Select a new folder for renamed files to be saved
+newFolder = sprintf('Final_Recordings_angle_reversed/');
+
+%% Rename Files
+for phi = 0:10:360
+        
+        % Calculate filenames
+        azimuth = phi;
+        elevation = 0;
+        
+        normSignalFilename = sprintf('%s_%d_%d_%d_N.wav',...
+                                     sound, repeat, azimuth,elevation);
+        testSignalFilename = sprintf('%s_%d_%d_%d_T.wav',...
+                                     sound, repeat, azimuth,elevation);
+        normSignalFilepath = sprintf('%s%s',...
+                                     folder, normSignalFilename);
+        testSignalFilepath = sprintf('%s%s',...
+                                     folder, testSignalFilename);
+        
+        % Read in files
+        [normalData, fs] = audioread(normSignalFilepath);
+        [testData, fs] = audioread(testSignalFilepath);
+        
+        % Calculate new filenames
+        new_azimuth = 360 - azimuth;
+        
+        new_normSignalFilename = sprintf('%s_%d_%d_%d_N.wav',...
+                                         sound, repeat,...
+                                         new_azimuth,elevation);
+        new_testSignalFilename = sprintf('%s_%d_%d_%d_T.wav',...
+                                         sound, repeat,...
+                                         new_azimuth,elevation);
+        new_normSignalFilepath = sprintf('%s%s',...
+                                         newFolder,...
+                                         new_normSignalFilename);
+        new_testSignalFilepath = sprintf('%s%s',...
+                                         newFolder,...
+                                         new_testSignalFilename);
+        
+        % Save files with new filenames
+        audiowrite(new_normSignalFilepath, normalData,...
+                   fs, 'BitsPerSample', 24);
+        audiowrite(new_testSignalFilepath, testData,...
+                   fs, 'BitsPerSample', 24);
+end
+##### SOURCE END #####
+--></body></html>

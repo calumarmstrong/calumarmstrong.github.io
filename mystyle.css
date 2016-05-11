@@ -86,18 +86,12 @@ h3 {
 }
 
 .sidebarTable {
-    width: 100%;
-    height: 100%;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
     border-collapse: collapse;
     padding: 0px;
     margin-top: 0px;
     background-color: yellow;
-}
-
-.sidebarTable td {
-    padding: 0px;
 }
 
 .contentCell{

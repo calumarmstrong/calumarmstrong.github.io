@@ -43,6 +43,7 @@ h3 {
 
 .sidebarLinks {
     font-size: 15px;
+    padding: 0px;
 }
 
 .sidebarLinks a {
@@ -85,6 +86,7 @@ h3 {
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
     border-collapse: collapse;
+    padding: 0px;
 }
 
 .sidebarTable td {

@@ -123,3 +123,17 @@ h3 {
     border-collapse: separate;
     padding: 0;
 }
+
+.centerDiv{
+    text-align: center;
+}
+
+div.img {
+    margin: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+div.img:hover {
+    border: 1px solid #777;
+}

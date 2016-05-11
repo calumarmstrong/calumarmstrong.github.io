@@ -549,14 +549,14 @@
 
 <script type="text/javascript">
     $('a.two').on('click', function(){
-       $('a.two').removeClass('activetwo');
        $(this).addClass('activetwo');
+       $('a.two').not(this).removeClass('activetwo');
     });
     
     $('a.three').on('click', function(){
        var target = $(this).attr('rel');
        $("#"+target).show().siblings("div").hide();
-       $('a.three').removeClass('activethree');
        $(this).addClass('activethree');
+       $('a.three').not(this).removeClass('activethree');
     });
 </script>

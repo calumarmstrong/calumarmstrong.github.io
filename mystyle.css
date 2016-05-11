@@ -130,10 +130,10 @@ h3 {
 
 div.img {
     margin: 5px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     display: inline-block;
 }
 
 div.img:hover {
-    border: 1px solid #777;
+    border: 2px solid #777;
 }

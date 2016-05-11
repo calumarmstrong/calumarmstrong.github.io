@@ -92,16 +92,12 @@ h3 {
     border-right: 1px solid lightgrey;
     border-collapse: collapse;
     padding: 0px;
+    margin-top: 0px;
+    background-color: blue;
 }
 
 .sidebarTable td {
-    padding: 0;
-}
-
-.sidebarCaption {
-    text-align: center;
-    line-height: 2;
-    color: white;
+    padding: 0px;
 }
 
 .contentCell{

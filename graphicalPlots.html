@@ -77,10 +77,10 @@
                             <table style="width: 100%; height: 100%;" border="0" cellpadding="0" cellspacing="0">
                                 <h2>Graphical Plots</h2>
                                 <hr><br>
-                                <div class="Description" style="text-align: center; width: 700px; margin: 0 auto;">
-                                    Welcome to the page for Graphical Plots. Please use the drop down menu on the left to select which Sound Source you would like to view the Graphical Plots of.
-                                </div>
                                 <div>
+                                    <div class="Description" style="text-align: center; width: 700px; margin: 0 auto;">
+                                    Welcome to the page for Graphical Plots. Please use the drop down menu on the left to select which Sound Source you would like to view the Graphical Plots of.
+                                    </div>
                                     <div id="aData" style="display: none">
                                         <img src="images/WebPlots/LowLedgend.png">
                                         <div style="width: 100%; display: table; text-align:center;">
@@ -554,7 +554,6 @@
     });
     
     $('a.three').on('click', function(){
-       $('div.description').hide();
        var target = $(this).attr('rel');
        $("#"+target).show().siblings("div").hide();
        $('a.three').removeClass('activethree');

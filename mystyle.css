@@ -55,6 +55,11 @@ h3 {
 }
 
 .sidebarLinks a:hover {
+    display: block;
+    text-decoration: none;
+    margin-left: 0px;
+    border-bottom: 1px solid lightgrey;
+    padding: 10px 0px 10px 10px;
     background-color: lightgrey;
     color: white;
 }

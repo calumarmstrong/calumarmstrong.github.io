@@ -553,8 +553,8 @@
        $(this).addClass('activetwo');
     });
     
-    $('.three').on('click', function(){
-       $('.description').hide();
+    $('a.three').on('click', function(){
+       $('div.description').hide();
        var target = $(this).attr('rel');
        $("#"+target).show().siblings("div").hide();
        $('a.three').removeClass('activethree');
